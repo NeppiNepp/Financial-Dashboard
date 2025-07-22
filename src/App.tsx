@@ -8,32 +8,8 @@ function App() {
       {/*
         # Make this the main page with a sidebar rendering each page depending on current page number
         ## Hold page number in a state variable & hold page info in a state object/refer to it in localStorage
-
-
-
-        #### Design Ideas ####
-
-        - Add/Remove credit cards
-          + set a color/image for card
-          + Add/Update credit limit
-          + Add transactions
-          + Update current card balance based on transactions
-          + Display current usage % for each card
-        - Add/Remove bank account/card
-          + set a color/image for card
-          + Add transactions
-          + Update current card balance based on transactions
-          + Display total of all cards
-        - Add/Remove savings accounts
-          + Set/edit current total, title, basic description
-          + Add goal if necessary
-          + Display total savings
-        - Add/Remove bills & subscriptions
-          + Set/edit cost, title, basic description, and start date
-          + Display total cost per month for all bills/subscriptions
-        - Display Total Net Worth based on information provided
-        - Display Monthly Income
       */}
+
     </>
   )
 }
