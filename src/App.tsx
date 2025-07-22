@@ -1,33 +1,39 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {/*
+        # Make this the main page with a sidebar rendering each page depending on current page number
+        ## Hold page number in a state variable & hold page info in a state object/refer to it in localStorage
+
+
+
+        #### Design Ideas ####
+
+        - Add/Remove credit cards
+          + set a color/image for card
+          + Add/Update credit limit
+          + Add transactions
+          + Update current card balance based on transactions
+          + Display current usage % for each card
+        - Add/Remove bank account/card
+          + set a color/image for card
+          + Add transactions
+          + Update current card balance based on transactions
+          + Display total of all cards
+        - Add/Remove savings accounts
+          + Set/edit current total, title, basic description
+          + Add goal if necessary
+          + Display total savings
+        - Add/Remove bills & subscriptions
+          + Set/edit cost, title, basic description, and start date
+          + Display total cost per month for all bills/subscriptions
+        - Display Total Net Worth based on information provided
+        - Display Monthly Income
+      */}
     </>
   )
 }
