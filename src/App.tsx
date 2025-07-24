@@ -1,16 +1,24 @@
-import { useState } from 'react'
+import { Routes, Route } from 'react-router-dom'
+import Navbar from './components/Navbar'
+import Homepage from './pages/Homepage'
+import BankAccounts from './pages/BankAccounts'
+import CreditCards from './pages/CreditCards'
+import Savings from './pages/Savings'
+import Bills from './pages/Bills'
 import './App.css'
 
 function App() {
 
   return (
     <>
-      {/*
-        Make this the main page with a navBar using react-router-dom
-        Store info collected in localStorage for persistance
-        Add random data to test each page during creation
-      */}
-
+      <Navbar />
+      <Routes>
+        <Route path='/' element={<Homepage />} />
+        <Route path='/bankaccounts' element={<BankAccounts />} />
+        <Route path='/creditcards' element={<CreditCards />} />
+        <Route path='/savings' element={<Savings />} />
+        <Route path='/bills' element={<Bills />} />
+      </Routes>
     </>
   )
 }
