@@ -6,8 +6,9 @@ function App() {
   return (
     <>
       {/*
-        # Make this the main page with a sidebar rendering each page depending on current page number
-        ## Hold page number in a state variable & hold page info in a state object/refer to it in localStorage
+        Make this the main page with a navBar using react-router-dom
+        Store info collected in localStorage for persistance
+        Add random data to test each page during creation
       */}
 
     </>
