@@ -7,7 +7,7 @@ import Savings from './pages/Savings'
 import Bills from './pages/Bills'
 import './App.css'
 
-function App() {
+export default function App() {
 
   return (
     <>
@@ -22,5 +22,3 @@ function App() {
     </>
   )
 }
-
-export default App

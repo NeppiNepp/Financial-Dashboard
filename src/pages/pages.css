@@ -2,3 +2,26 @@
     margin-left: 325px;
     padding: 0 25px;
 }
+
+.account-container {
+    display: inline-block;
+    border: 2px solid blue;
+    background-color: gray;
+    color: black;
+    border-radius: 10px;
+    margin: 50px;
+    padding: 8px;
+    width: 500px;
+}
+
+.transactions, .deposits {
+    display: inline-block;
+    border: 2px solid black;
+    margin-bottom: 10px;
+    text-align: center;
+    width: 32%;
+}
+
+.add-account-btn {
+
+}
