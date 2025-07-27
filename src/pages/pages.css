@@ -3,6 +3,12 @@
     padding: 0 25px;
 }
 
+.page-header {
+    position: absolute;
+    top: 0;
+    left: 45%;
+}
+
 .account-container {
     display: inline-block;
     border: 2px solid blue;
@@ -12,16 +18,34 @@
     margin: 50px;
     padding: 8px;
     width: 500px;
+    text-align: center;
 }
 
 .transactions, .deposits {
     display: inline-block;
+    border-radius: 15px;
     border: 2px solid black;
     margin-bottom: 10px;
     text-align: center;
     width: 32%;
 }
 
-.add-account-btn {
+.new-account-container {
+    display: inline;
+}
 
+.add-transaction-btn, .add-deposit-btn {
+    font-size: 13px;
+}
+
+.transaction-input, .deposit-input {
+    display: block;
+}
+
+.save-btn {
+    font-size: 12px;
+}
+
+.info {
+    display: block;
 }
