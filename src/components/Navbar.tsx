@@ -9,7 +9,7 @@ export default function Navbar() {
                     <NavLink to='/'>Dashboard</NavLink>
                 </li>
                 <li>
-                    <NavLink to='/bankaccounts'>Bank Accounts</NavLink>
+                    <NavLink to='/accounts'>Accounts</NavLink>
                 </li>
                 <li>
                     <NavLink to='/creditcards'>Credit Cards</NavLink>
@@ -19,6 +19,9 @@ export default function Navbar() {
                 </li>
                 <li>
                     <NavLink to='/bills'>Bills/Subscriptions</NavLink>
+                </li>
+                <li>
+                    <NavLink to='/transactions'>Transactions</NavLink>
                 </li>
             </ul>
         </nav>

@@ -1,12 +1,14 @@
 .page-content {
     margin-left: 325px;
     padding: 0 25px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
 
 .page-header {
-    position: absolute;
-    top: 0;
-    left: 45%;
+    display: block;
+    text-align: center;
+    margin-left: 325px;
 }
 
 .account-container {
@@ -31,7 +33,8 @@
 }
 
 .new-account-container {
-    display: inline;
+    display: grid;
+    place-items: center;
 }
 
 .add-transaction-btn, .add-deposit-btn {
@@ -44,6 +47,10 @@
 
 .save-btn {
     font-size: 12px;
+}
+
+.save-changes-btn {
+    margin-left: 325px;
 }
 
 .info {
