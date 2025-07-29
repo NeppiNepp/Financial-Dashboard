@@ -1,9 +1,7 @@
-import './pages.css'
-
 export default function Savings({ savingsInfo, setSavingsInfo }) {
     return (
-        <div className="page-content">
-            <h1>Savings Page</h1>
+        <div>
+            <h1 className="block text-center ml-[325px]">Savings Page</h1>
         </div>
     )
 }

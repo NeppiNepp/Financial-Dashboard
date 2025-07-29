@@ -1,6 +1,8 @@
 import { useImmer } from 'use-immer'
 import { useState } from 'react'
-import './pages.css'
+
+
+
 
 export default function Accounts({ accountsInfo, setAccountsInfo }) {
     const [ currentInfo, setCurrentInfo ] = useImmer(accountsInfo)
@@ -12,7 +14,7 @@ export default function Accounts({ accountsInfo, setAccountsInfo }) {
 
     function handleAddTransaction(accountId: string, date: string, category: string, cost: string) {
         setCurrentInfo(draft => {
-            const draftToUpdate = draft.find(account => account.id === accountId);
+            const draftToUpdate = draft.find((account: { id: string; }) => account.id === accountId);
             if (draftToUpdate) {
                 draftToUpdate.transactions.push({
                     id: draftToUpdate.transactions.length + 1,
@@ -67,66 +69,66 @@ export default function Accounts({ accountsInfo, setAccountsInfo }) {
 
 
     return (
-        <div className="page">
-            <h1 className="page-header">Accounts Page</h1>
-            <div className="page-content">
+        <div className="text-center">
+            <h1 className="block text-center ml-[190px]">Accounts Page</h1>
+            <div className="grid grid-cols-[1fr_1fr] ml-[325px] px-[25px] py-0">
                 {currentInfo.map(account =>
-                    <div className="account-container" key={account.id}>
-                        <h2>{account.name}</h2>
-                        <p>Balance: ${account.currentBalance}</p>
+                    <div className="inline-block bg-[gray] text-[black] w-[500px] text-center m-[50px] p-2 rounded-[10px] border-2 border-solid border-[blue]" key={account.id}>
+                        <h2 className="text-[30px] font-[bold]">{account.name}</h2>
+                        <p className="text-[20px] font-[bold]">Balance: ${account.currentBalance}</p>
                         <hr />
-                        <h3>Latest Transactions</h3> {/* Manage transactions for each account */}
+                        <h3 className="text-[23px] font-[bold]">Latest Transactions</h3> {/* Manage transactions for each account */}
                             { account.transactions.length > 0 ?
                                 account.transactions.slice(0, 3).map(transaction =>
-                                    <div className="transactions" key={account.name + 'TRAN' + transaction.id}>
+                                    <div className="inline-block text-center pt-[10px] min-h-[100px] w-[32%] mb-2.5 rounded-[15px] border-2 border-solid border-[black]" key={account.name + 'TRAN' + transaction.id}>
                                         <p>Date: {transaction.date}</p>
                                         <p>Category: {transaction.category}</p>
                                         <p>Cost: -${transaction.cost}</p>
                                     </div>
                                 )
-                                : <p>No Recent Transactions</p>
+                                : <p className="text-[18px] font-[normal] m-[15px]">No Recent Transactions</p>
                             }
                         {addingTransact === account.id ?
                             <div>
-                                <label className="transaction-input">Date: <input type='date' onChange={e => nDate = e.target.value} /></label>
-                                <label className="transaction-input">Category: <input type='text' onChange={e => nCategory = e.target.value} /></label>
-                                <label className="transaction-input">Cost: <input type='number' onChange={e => nCost = e.target.value} /></label>
-                                <button className="save-btn" onClick={() => handleAddTransaction(addingTransact, nDate, nCategory, nCost)}>Save</button>
+                                <label className="block">Date: <input type='date' className="text-[black] bg-[lightgrey] pl-[5px] border-[1px] border-[solid] border-[black] rounded-[10px]" onChange={e => nDate = e.target.value} /></label>
+                                <label className="block">Category: <input type='text' className="text-[black] bg-[lightgrey] pl-[5px] border-[1px] border-[solid] border-[black] rounded-[10px]"  onChange={e => nCategory = e.target.value} /></label>
+                                <label className="block">Cost: <input type='number' className="text-[black] bg-[lightgrey] pl-[5px] border-[1px] border-[solid] border-[black] rounded-[10px]"  onChange={e => nCost = e.target.value} /></label>
+                                <button className="text-[12px] text-[white]" onClick={() => handleAddTransaction(addingTransact, nDate, nCategory, nCost)}>Save</button>
                             </div>
-                            : <button className="add-transaction-btn" onClick={() => setAddingTransaction(account.id)}>Add Transaction</button>
+                            : <button className="text-[13px] text-[white]" onClick={() => setAddingTransaction(account.id)}>Add Transaction</button>
                         }
                         <hr />
-                        <h3>Latest Deposits</h3>    {/* Manage deposits for each account */}
+                        <h3 className="text-[23px] font-[bold]">Latest Deposits</h3>    {/* Manage deposits for each account */}
                             { account.deposits.length > 0 ?
                                 account.deposits.map(deposit =>
-                                    <div className="deposits" key={account.name + 'DEP' + deposit.id}>
+                                    <div className="inline-block text-center pt-[10px] min-h-[80px] w-[32%] mb-2.5 rounded-[15px] border-2 border-solid border-[black]" key={account.name + 'DEP' + deposit.id}>
                                         <p>Date: {deposit.date}</p>
                                         <p>Amount: +${deposit.amount}</p>
                                     </div>
                                 )
-                                : <p>No Recent Deposits</p>
+                                : <p className="text-[18px] font-[normal] m-[15px]">No Recent Deposits</p>
                             }
                         {addingDeposit === account.id ?
                             <div>
-                                <label className="deposit-input">Date: <input type='date' onChange={e => nDate = e.target.value} /></label>
-                                <label className="deposit-input">Amount: <input type='number' onChange={e => nAmount = e.target.value} /></label>
-                                <button className="save-btn" onClick={() => handleAddDeposit(addingDeposit, nDate, nAmount)}>Save</button>
+                                <label className="block">Date: <input type='date' className="text-[black] bg-[lightgrey] pl-[5px] border-[1px] border-[solid] border-[black] rounded-[10px]"  onChange={e => nDate = e.target.value} /></label>
+                                <label className="block">Amount: <input type='number' className="text-[black] bg-[lightgrey] pl-[5px] border-[1px] border-[solid] border-[black] rounded-[10px]"  onChange={e => nAmount = e.target.value} /></label>
+                                <button className="text-[12px] text-[white]" onClick={() => handleAddDeposit(addingDeposit, nDate, nAmount)}>Save</button>
                             </div>
-                            : <button className="add-deposit-btn" onClick={() => setAddingDeposit(account.id)}>Add Deposit</button>
+                            : <button className="text-[13px] text-[white]" onClick={() => setAddingDeposit(account.id)}>Add Deposit</button>
                         }
                     </div>
                 )}
-                <div className="new-account-container"> {/* Create new accounts */}
+                <div className="grid place-items-center ml-[-140px] min-h-[400px]"> {/* Create new accounts */}
                     {addingAccount ?
                     <div>
-                            <label className="info">Account Name: <input type="text" className="new-account-info" onChange={e => newAccountName = e.target.value} /></label>
-                            <label className="info">Balance: <input type="number" className="new-account-info" onChange={e => newAccountBalance = e.target.value} /></label>
-                        <button className="new-account-name-btn" onClick={() => handleAddAccount(newAccountName, newAccountBalance)}>Save</button>
+                            <label className="block">Account Name: <input type="text" className="text-[black] bg-[lightgrey] pl-[5px] border-[1px] border-[solid] border-[black] rounded-[10px]"  onChange={e => newAccountName = e.target.value} /></label>
+                            <label className="block">Balance: <input type="number" className="text-[black] bg-[lightgrey] pl-[5px] border-[1px] border-[solid] border-[black] rounded-[10px]"  onChange={e => newAccountBalance = e.target.value} /></label>
+                        <button className="text-[white]" onClick={() => handleAddAccount(newAccountName, newAccountBalance)}>Save</button>
                     </div>
-                    : <button className="add-account-btn" onClick={() => setAddingAccount(true)}>+</button>}
+                    : <button className="text-[white]" onClick={() => setAddingAccount(true)}>+</button>}
                 </div>
             </div>
-            <button className="save-changes-btn" onClick={handleSave}>Save Changes</button>
+            <button className="ml-[190px] text-[white]" onClick={handleSave}>Save Changes</button>
         </div>
     )
 }

@@ -1,9 +1,7 @@
-import './pages.css'
-
-export default function Homepage({ accountsInfo, creditInfo, savingsInfo, billsInfo, transactionsInfo }) {
+export default function Homepage({ accountsInfo, creditInfo, savingsInfo, billsInfo }) {
     return (
-        <div className="page-content">
-            <h1>Home Page</h1>
+        <div>
+            <h1 className="block text-center ml-[325px]">Home Page</h1>
         </div>
     )
 }

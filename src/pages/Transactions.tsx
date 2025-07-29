@@ -1,13 +1,11 @@
-import './pages.css'
-
-export default function Transactions({ transactionsInfo, setTransactionsInfo }) {
+export default function Transactions({ accountsInfo, setAccountsInfo, creditInfo, setCreditInfo }) {
 
 
 
 
     return (
         <div>
-            <h1 className="page-header">Transactions Page</h1>
+            <h1 className="block text-center ml-[325px]">Transactions Page</h1>
         </div>
     )
 }

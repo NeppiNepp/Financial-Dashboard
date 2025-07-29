@@ -7,14 +7,12 @@ import CreditCards from './pages/CreditCards'
 import Savings from './pages/Savings'
 import Bills from './pages/Bills'
 import Transactions from './pages/Transactions'
-import './App.css'
 
 export default function App() {
   const [accountsInfo, setAccountsInfo] = useImmer(initialAccounts); // bank/debit accounts
   const [creditInfo, setCreditInfo] = useImmer(null); // credit card accounts
   const [savingsInfo, setSavingsInfo] = useImmer(null); // savings accounts
   const [billsInfo, setBillsInfo] = useImmer(null); // bill receipts
-  const [transactionsInfo, setTransactionsInfo] = useImmer(null); // transactions
 
   return (
     <>
@@ -27,7 +25,6 @@ export default function App() {
             creditInfo={creditInfo}
             savingsInfo={savingsInfo}
             billsInfo={billsInfo}
-            transactionsInfo={transactionsInfo}
           />}
         />
         <Route
@@ -54,8 +51,10 @@ export default function App() {
         <Route
           path='/transactions'
           element={<Transactions
-            transactionsInfo={transactionsInfo}
-            setTransactionsInfo={setTransactionsInfo}
+            accountsInfo={accountsInfo}
+            setAccountsInfo={setAccountsInfo}
+            creditInfo={creditInfo}
+            setCreditInfo={setCreditInfo}
           />}
         />
         <Route
