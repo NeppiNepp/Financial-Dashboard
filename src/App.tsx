@@ -3,15 +3,11 @@ import { useImmer } from 'use-immer'
 import Navbar from './components/Navbar'
 import Homepage from './pages/Homepage'
 import Accounts from './pages/BankAccounts'
-import CreditCards from './pages/CreditCards'
-import Savings from './pages/Savings'
 import Bills from './pages/Bills'
 import Transactions from './pages/Transactions'
 
 export default function App() {
   const [accountsInfo, setAccountsInfo] = useImmer(initialAccounts); // bank/debit accounts
-  const [creditInfo, setCreditInfo] = useImmer(null); // credit card accounts
-  const [savingsInfo, setSavingsInfo] = useImmer(null); // savings accounts
   const [billsInfo, setBillsInfo] = useImmer(null); // bill receipts
 
   return (
@@ -22,8 +18,6 @@ export default function App() {
           path='/'
           element={<Homepage
             accountsInfo={accountsInfo}
-            creditInfo={creditInfo}
-            savingsInfo={savingsInfo}
             billsInfo={billsInfo}
           />}
         />
@@ -35,26 +29,10 @@ export default function App() {
           />}
         />
         <Route
-          path='/creditcards'
-          element={<CreditCards
-            creditInfo={creditInfo}
-            setCreditInfo={setCreditInfo}
-          />}
-        />
-        <Route
-          path='/savings'
-          element={<Savings
-            savingsInfo={savingsInfo}
-            setSavingsInfo={setSavingsInfo}
-          />}
-        />
-        <Route
           path='/transactions'
           element={<Transactions
             accountsInfo={accountsInfo}
             setAccountsInfo={setAccountsInfo}
-            creditInfo={creditInfo}
-            setCreditInfo={setCreditInfo}
           />}
         />
         <Route
@@ -69,25 +47,19 @@ export default function App() {
   )
 }
 
-interface deposit {
-    id: number,
-    date: string,
-    amount: number
-}
+interface deposit { id: number, date: string, amount: number }
 
-interface transaction {
-    id: number,
-    date: string,
-    category: string,
-    cost: number
-}
+interface transaction { id: number, date: string, category: string, cost: number }
+
 
 interface account {
     accountNum: number,
     name: string,
+    type: string,
     deposits: deposit[],
     transactions: transaction[],
-    currentBalance: number
+    currentBalance: number,
+    limit: number
 }
 
 const initialAccounts: account[] = []

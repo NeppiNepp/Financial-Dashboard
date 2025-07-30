@@ -1,5 +1,8 @@
-export default function Transactions({ accountsInfo, setAccountsInfo, creditInfo, setCreditInfo }) {
+export default function Transactions({ accountsInfo, setAccountsInfo }) {
 
+    function calculateBalance() {
+
+    }
 
 
 

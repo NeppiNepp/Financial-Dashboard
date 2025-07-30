@@ -1,4 +1,4 @@
-export default function Homepage({ accountsInfo, creditInfo, savingsInfo, billsInfo }) {
+export default function Homepage({ accountsInfo, billsInfo }) {
     return (
         <div>
             <h1 className="block text-center ml-[325px]">Home Page</h1>

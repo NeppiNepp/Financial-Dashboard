@@ -12,12 +12,6 @@ export default function Navbar() {
                     <NavLink to='/accounts'>Accounts</NavLink>
                 </li>
                 <li>
-                    <NavLink to='/creditcards'>Credit Cards</NavLink>
-                </li>
-                <li>
-                    <NavLink to='/savings'>Savings</NavLink>
-                </li>
-                <li>
                     <NavLink to='/bills'>Bills/Subscriptions</NavLink>
                 </li>
                 <li>
