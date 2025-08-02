@@ -1,17 +1,17 @@
 #### Design Ideas ####
 
-- Add/Remove credit cards
+- Add/Remove credit cards (Currently Working On)
     + set a color/image for card
     + Add/Update credit limit
-    + Add transactions
+    ~~ + Add transactions ~~
     + Update current card balance based on transactions
     + Display current usage % for each card
-- Add/Remove bank account/card
+- Add/Remove bank account/card (Currently Working On)
     + set a color/image for card
-    + Add transactions
+    ~~ + Add transactions ~~
     + Update current card balance based on transactions
     + Display total of all cards
-- Add/Remove savings accounts
+- Add/Remove savings accounts (Currently Working On)
     + Set/edit current total, title, basic description
     + Add goal if necessary
     + Display total savings
