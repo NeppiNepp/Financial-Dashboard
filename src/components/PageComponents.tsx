@@ -1,4 +1,4 @@
-import { useState} from 'react';
+import { useState } from 'react';
 
 
 export function LatestDeposits({ accounts, saveDeposits, accountId }) {
@@ -115,6 +115,31 @@ export function LatestTransactions({ accounts, saveTransactions, accountId }) {
                 </div>
             }
             <hr />
+        </div>
+    )
+}
+
+
+export function NewAccount({ handleAddAccount, addingAccount, setAddingAccount, nameRef, typeRef, balanceRef }) {
+    return (
+        <div className="grid place-items-center ml-[-140px] min-h-[400px]"> {/* Create new accounts */}
+            {addingAccount ?
+            <div className="text-center">
+                <label className="block ml-[-45px]">Account Name: <input type="text" ref={nameRef} className="text-[black] bg-[lightgrey] pl-[5px] border-[1px] border-[solid] border-[black] rounded-[10px]" /></label>
+                <label className="ml-[4px] mr-[5px]">Type:</label>
+                    <select
+                        ref={typeRef}
+                        className="text-[black] bg-[lightgrey] pl-[5px] mt-[10px] mb-[10px] border-[1px] border-[solid] border-[black] rounded-[10px]"
+                    >
+                        <option value="default">Select Account Type</option>
+                        <option value="Checking">Checking</option>
+                        <option value="Credit">Credit</option>
+                        <option value="Savings">Savings</option>
+                    </select>
+                <label className="block">Balance: <input type="number" ref={balanceRef} className="text-[black] bg-[lightgrey] pl-[5px] border-[1px] border-[solid] border-[black] rounded-[10px]" /></label>
+                <button className="text-[white]" onClick={handleAddAccount}>Save</button>
+            </div>
+            : <button className="text-[white]" onClick={() => setAddingAccount(true)}>+</button>}
         </div>
     )
 }
