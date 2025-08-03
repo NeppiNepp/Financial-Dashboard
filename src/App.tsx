@@ -7,7 +7,7 @@ import Bills from './pages/Bills'
 import Transactions from './pages/Transactions'
 
 export default function App() {
-  const [debitInfo, setDebitInfo] = useImmer(initialDebitAccounts); // change to an array of three arrays holding each type of account
+  const [checkingInfo, setCheckingInfo] = useImmer(initialCheckingAccounts); // change to an array of three arrays holding each type of account
   const [creditInfo, setCreditInfo] = useImmer(initialCreditAccounts);
   const [savingsInfo, setSavingsInfo] = useImmer(initialSavingsAccounts);
   const [billsInfo, setBillsInfo] = useImmer(null); // bill receipts
@@ -19,7 +19,7 @@ export default function App() {
         <Route
           path='/'
           element={<Homepage
-            debitInfo={debitInfo}
+            checkingInfo={checkingInfo}
             creditInfo={creditInfo}
             savingsInfo={savingsInfo}
             billsInfo={billsInfo}
@@ -28,10 +28,10 @@ export default function App() {
         <Route
           path='/accounts'
           element={<Accounts
-            debitInfo={debitInfo}
+            checkingInfo={checkingInfo}
             creditInfo={creditInfo}
             savingsInfo={savingsInfo}
-            setDebitInfo={setDebitInfo}
+            setCheckingInfo={setCheckingInfo}
             setCreditInfo={setCreditInfo}
             setSavingsInfo={setSavingsInfo}
           />}
@@ -39,10 +39,10 @@ export default function App() {
         <Route
           path='/transactions'
           element={<Transactions
-            debitInfo={debitInfo}
+            checkingInfo={checkingInfo}
             creditInfo={creditInfo}
             savingsInfo={savingsInfo}
-            setDebitInfo={setDebitInfo}
+            setCheckingInfo={setCheckingInfo}
             setCreditInfo={setCreditInfo}
             setSavingsInfo={setSavingsInfo}
           />}
@@ -64,10 +64,10 @@ interface withdrawal { id: number, date: string, amount: number }
 interface payment { id: number, date: string, amount: number }
 interface transaction { id: number, date: string, category: string, cost: number }
 
-interface debitAccount {
+interface checkingAccount {
     accountNum: number,
-    name: string,
     type: string,
+    name: string,
     deposits: deposit[],
     transactions: transaction[],
     currentBalance: number
@@ -75,8 +75,8 @@ interface debitAccount {
 
 interface creditAccount {
     accountNum: number,
-    name: string,
     type: string,
+    name: string,
     payments: payment[],
     transactions: transaction[],
     currentBalance: number,
@@ -86,14 +86,14 @@ interface creditAccount {
 
 interface savingsAccount {
     accountNum: number,
-    name: string,
     type: string,
+    name: string,
     withdrawals: withdrawal[],
-    transactions: transaction[],
+    deposits: deposit[],
     currentBalance: number,
     goal: number
 }
 
-const initialDebitAccounts: debitAccount[] = [];
+const initialCheckingAccounts: checkingAccount[] = [];
 const initialCreditAccounts: creditAccount[] = [];
 const initialSavingsAccounts: savingsAccount[] = [];
