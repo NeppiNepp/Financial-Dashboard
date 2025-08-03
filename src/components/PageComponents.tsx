@@ -5,7 +5,7 @@ import { useState } from 'react';
 export function LatestDeposits({ accounts, saveDeposits, accountId }) {
     const currentDate = new Date();
     const defaultDate = `${currentDate.getFullYear()}-${currentDate.getMonth()}-${currentDate.getDate()}`
-    const currentAccount = accounts.find((account: { accountNum:number; }) => account.accountNum === accountId);
+    const currentAccount = accounts.find((account: { id: string; }) => account.id === accountId);
     console.log(currentAccount)
     const [addingDeposit, setAddingDeposit] = useState(false);
     const depositInfo = {
@@ -15,7 +15,7 @@ export function LatestDeposits({ accounts, saveDeposits, accountId }) {
 
     function handleAddDeposit(date: string, amount: string) {
         saveDeposits((draft: any[]) => {
-            const draftToUpdate = draft.find((account: { accountNum: number; }) => account.accountNum === accountId)
+            const draftToUpdate = draft.find((account: { id: string; }) => account.id === accountId);
             if (draftToUpdate) {
                 draftToUpdate.deposits.push({
                     id: draftToUpdate.deposits.length + 1,
@@ -62,7 +62,7 @@ export function LatestDeposits({ accounts, saveDeposits, accountId }) {
 
 /* ------------------------------ Transactions Component ------------------------------ */
 export function LatestTransactions({ accounts, saveTransactions, accountId }) {
-    const currentAccount = accounts.find((account: { accountNum: number; }) => account.accountNum === accountId);
+    const currentAccount = accounts.find((account: { id: string; }) => account.id === accountId);
     const [ addingTransact, setAddingTransaction ] = useState(false);
     const transactionInfo = {
         date: '',
@@ -74,7 +74,7 @@ export function LatestTransactions({ accounts, saveTransactions, accountId }) {
         const currentDate = new Date();
         const defaultDate = `${currentDate.getFullYear()}-${currentDate.getMonth()}-${currentDate.getDate()}`
         saveTransactions((draft: any[]) => {
-            const draftToUpdate = draft.find((account: { accountNum: number; }) => account.accountNum === accountId);
+            const draftToUpdate = draft.find((account: { id: string; }) => account.id === accountId);
             if (draftToUpdate) {
                 draftToUpdate.transactions.push({
                     id: draftToUpdate.transactions.length + 1,
@@ -126,7 +126,7 @@ export function LatestTransactions({ accounts, saveTransactions, accountId }) {
 
 /* ------------------------------ Withdrawals Component ------------------------------ */
 export function LatestWithdrawals({ accounts, saveWithdrawals, accountId }) {
-    const currentAccount = accounts.find((account: { accountNum: number; }) => account.accountNum === accountId);
+    const currentAccount = accounts.find((account: { id: string; }) => account.id === accountId);
     const [ addingWithdrawal, setAddingWithdrawal ] = useState(false);
     const withdrawalInfo = {
         date: '',
@@ -137,7 +137,7 @@ export function LatestWithdrawals({ accounts, saveWithdrawals, accountId }) {
         const currentDate = new Date();
         const defaultDate = `${currentDate.getFullYear()}-${currentDate.getMonth()}-${currentDate.getDate()}`
         saveWithdrawals((draft: any[]) => {
-            const draftToUpdate = draft.find((account: { accountNum: number; }) => account.accountNum === accountId);
+            const draftToUpdate = draft.find((account: { id: string; }) => account.id === accountId);
             if (draftToUpdate) {
                 draftToUpdate.withdrawals.push({
                     id: draftToUpdate.withdrawals.length + 1,
@@ -183,7 +183,7 @@ export function LatestWithdrawals({ accounts, saveWithdrawals, accountId }) {
 
 /* ------------------------------ Payments Component ------------------------------ */
 export function LatestPayments({ accounts, savePayments, accountId }) {
-    const currentAccount = accounts.find((account: { accountNum: number; }) => account.accountNum === accountId);
+    const currentAccount = accounts.find((account: { id: string; }) => account.id === accountId);
     const [ addingPayment, setAddingPayment ] = useState(false);
     const paymentInfo = {
         date: '',
@@ -194,7 +194,7 @@ export function LatestPayments({ accounts, savePayments, accountId }) {
         const currentDate = new Date();
         const defaultDate = `${currentDate.getFullYear()}-${currentDate.getMonth()}-${currentDate.getDate()}`
         savePayments((draft: any[]) => {
-            const draftToUpdate = draft.find((account: { accountNum: number; }) => account.accountNum === accountId);
+            const draftToUpdate = draft.find((account: { id: string; }) => account.id === accountId);
             if (draftToUpdate) {
                 draftToUpdate.payments.push({
                     id: draftToUpdate.payments.length + 1,
@@ -229,7 +229,7 @@ export function LatestPayments({ accounts, savePayments, accountId }) {
                 </div>
                 :
                 <div className="pb-[10px]">
-                    <button className="text-[13px] text-[white] bg-[darkblue]" onClick={() => setAddingPayment(true)}>Add Payments</button>
+                    <button className="text-[13px] text-[white] bg-[darkblue]" onClick={() => setAddingPayment(true)}>Add Payment</button>
                 </div>
             }
             <hr />
@@ -269,10 +269,10 @@ export function NewAccount({ handleAddAccount, addingAccount, setAddingAccount, 
 /* ------------------------------ Display Accounts Component ------------------------------ */
 export function Account({ account, type, currentInfo, updateCurrentInfo }) {
     function removeAccount() { // fix this to remove based on some key
-        console.log(account.accountNum);
-        const newAccountsList = currentInfo.filter((cAccount: { accountNum: number; }) => cAccount.accountNum === account.accountNum);
-        updateCurrentInfo(newAccountsList);
-        return
+        const accountIndex = currentInfo.findIndex((cAccount: { id: string; }) => cAccount.id === account.id);
+        updateCurrentInfo(draft => {
+            draft.splice(accountIndex, 1)
+        });
     }
 
 
@@ -287,16 +287,15 @@ export function Account({ account, type, currentInfo, updateCurrentInfo }) {
                 </button>
             </div>
             <h2 className="text-[30px] font-[bold]">{account.name}</h2>
-            <p className="text-[25px] font-[bold]">{type}</p>
             <p className="text-[20px] font-[bold]">Balance: ${account.currentBalance}</p>
             {type === 'Savings' && <p>Goal: {account.goal ? ('$' + account.goal) : 'No Goal'}</p>}
             {type === 'Credit' && <p>Credit Limit: {account.limit ? ('$' + account.limit) : 'Unknown'}</p>}
             {type === 'Credit' && <p>Rewards: {account.rewards}</p>}
             <hr />
-            {(type === 'Checking' || type === 'Credit') && <LatestTransactions accounts={currentInfo} saveTransactions={updateCurrentInfo} accountId={account.accountNum} />}
-            {type === 'Savings' && <LatestWithdrawals accounts={currentInfo} saveWithdrawals={updateCurrentInfo} accountId={account.accountNum} />}
-            {type === 'Credit' && <LatestPayments accounts={currentInfo} savePayments={updateCurrentInfo} accountId={account.accountNum} />}
-            {(type === 'Checking' || type === 'Savings') && <LatestDeposits accounts={currentInfo} saveDeposits={updateCurrentInfo} accountId={account.accountNum} />}
+            {(type === 'Checking' || type === 'Credit') && <LatestTransactions accounts={currentInfo} saveTransactions={updateCurrentInfo} accountId={account.id} />}
+            {type === 'Savings' && <LatestWithdrawals accounts={currentInfo} saveWithdrawals={updateCurrentInfo} accountId={account.id} />}
+            {type === 'Credit' && <LatestPayments accounts={currentInfo} savePayments={updateCurrentInfo} accountId={account.id} />}
+            {(type === 'Checking' || type === 'Savings') && <LatestDeposits accounts={currentInfo} saveDeposits={updateCurrentInfo} accountId={account.id} />}
         </div>
     )
 }

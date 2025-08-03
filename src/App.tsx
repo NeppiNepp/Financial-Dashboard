@@ -65,7 +65,7 @@ interface payment { id: number, date: string, amount: number }
 interface transaction { id: number, date: string, category: string, cost: number }
 
 interface checkingAccount {
-    accountNum: number,
+    id: string,
     type: string,
     name: string,
     deposits: deposit[],
@@ -74,7 +74,7 @@ interface checkingAccount {
 }
 
 interface creditAccount {
-    accountNum: number,
+    id: string,
     type: string,
     name: string,
     payments: payment[],
@@ -85,7 +85,7 @@ interface creditAccount {
 }
 
 interface savingsAccount {
-    accountNum: number,
+    id: string,
     type: string,
     name: string,
     withdrawals: withdrawal[],

@@ -23,10 +23,9 @@ export default function Accounts({ checkingInfo, setCheckingInfo, creditInfo, se
         let accountNumber: number;
         switch (type) {
             case 'Credit':
-                accountNumber = currentCreditInfo.length + 1;
                 updateCurrentCreditInfo(draft => {
                     draft.push({
-                        accountNum: accountNumber,
+                        id: 'Cr' + nameRef.current.value + currentCreditInfo.length,
                         type: 'Credit',
                         name: nameRef.current.value ? nameRef.current.value : 'Default',
                         payments: [],
@@ -39,10 +38,9 @@ export default function Accounts({ checkingInfo, setCheckingInfo, creditInfo, se
                 setAddingAccount(false);
                 break;
             case 'Savings':
-                accountNumber = currentSavingsInfo.length + 1;
                 updateCurrentSavingsInfo(draft => {
                     draft.push({
-                        accountNum: accountNumber,
+                        id: 'Sa' + nameRef.current.value + currentSavingsInfo.length,
                         type: 'Savings',
                         name: nameRef.current.value ? nameRef.current.value : 'Default',
                         withdrawals: [],
@@ -55,10 +53,9 @@ export default function Accounts({ checkingInfo, setCheckingInfo, creditInfo, se
                 setAddingAccount(false);
                 break;
             case 'Checking':
-                accountNumber = currentCheckingInfo.length + 1;
                 updateCurrentCheckingInfo(draft => {
                     draft.push({
-                        accountNum: accountNumber,
+                        id: 'Ch' + nameRef.current.value + currentCheckingInfo.length,
                         type: 'Checking',
                         name: nameRef.current.value ? nameRef.current.value : 'Default',
                         deposits: [],
@@ -69,6 +66,7 @@ export default function Accounts({ checkingInfo, setCheckingInfo, creditInfo, se
                 setAddingAccount(false);
                 break;
         }
+        setType('');
     }
 
     function handleSave() {
@@ -93,10 +91,10 @@ export default function Accounts({ checkingInfo, setCheckingInfo, creditInfo, se
                 goalRef={goalRef}
                 rewardsRef={rewardsRef}
             />
-            <p className="text-[30px] text-center ml-[190px]">PLACEHOLDER: Checking Accounts</p>
+            <p className="text-[30px] text-center ml-[190px]">Checking Accounts</p>
             <div className="grid grid-cols-[1fr_1fr] ml-[325px] px-[25px] py-0"> {/* maps out each account into a grid */}
                 {currentCheckingInfo.map(account =>
-                    <div key={'Ch' + account.accountNum}>
+                    <div key={account.id}>
                         <Account
                             account={account}
                             type={account.type}
@@ -106,11 +104,11 @@ export default function Accounts({ checkingInfo, setCheckingInfo, creditInfo, se
                     </div>
                 )}
             </div>
-            <hr />
-            <p className="text-[30px] text-center ml-[190px]">PLACEHOLDER: Credit Card Accounts</p> {/* Only show if accounts exist? */}
+            <hr className="mt-[40px] mb-[40px]" />
+            <p className="text-[30px] text-center ml-[190px]">Credit Cards</p> {/* Only show if accounts exist? */}
             <div className="grid grid-cols-[1fr_1fr] ml-[325px] px-[25px] py-0">
                 {currentCreditInfo.map(account =>
-                    <div key={'Cr' + account.accountNum}>
+                    <div key={account.id}>
                         <Account
                             account={account}
                             type={account.type}
@@ -120,11 +118,11 @@ export default function Accounts({ checkingInfo, setCheckingInfo, creditInfo, se
                     </div>
                 )}
             </div>
-            <hr />
-            <p className="text-[30px] text-center ml-[190px]">PLACEHOLDER: Savings Accounts</p> {/* Only show if accounts exist? */}
+            <hr className="mt-[40px] mb-[40px]" />
+            <p className="text-[30px] text-center ml-[190px] mt-[40px]">Savings Accounts</p> {/* Only show if accounts exist? */}
             <div className="grid grid-cols-[1fr_1fr] ml-[325px] px-[25px] py-0">
                 {currentSavingsInfo.map(account =>
-                <div key={'Sa' + account.accountNum}>
+                <div key={account.id}>
                         <Account
                             account={account}
                             type={account.type}
