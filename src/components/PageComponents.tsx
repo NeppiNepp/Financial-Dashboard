@@ -6,7 +6,6 @@ export function LatestDeposits({ accounts, saveDeposits, accountId }) {
     const currentDate = new Date();
     const defaultDate = `${currentDate.getFullYear()}-${currentDate.getMonth()}-${currentDate.getDate()}`
     const currentAccount = accounts.find((account: { id: string; }) => account.id === accountId);
-    console.log(currentAccount)
     const [addingDeposit, setAddingDeposit] = useState(false);
     const depositInfo = {
         date: '',
@@ -109,7 +108,17 @@ export function LatestTransactions({ accounts, saveTransactions, accountId }) {
                 addingTransact ?
                 <div>
                     <label className="block ml-[-14px]">Date: <input type='date' className="text-[black] bg-[lightgrey] pl-[5px] border-[1px] border-[solid] border-[black] rounded-[10px]" onChange={e => transactionInfo.date = e.target.value} /></label>
-                    <label className="block">Category: <input type='text' className="text-[black] bg-[lightgrey] pl-[5px] border-[1px] border-[solid] border-[black] rounded-[10px]" onChange={e => transactionInfo.category = e.target.value} /></label>
+                    <label className="block">Category:
+                        <select onChange={e => transactionInfo.category = e.target.value} className="text-[black] bg-[lightgrey] pl-[5px] border-[1px] border-[solid] border-[black] rounded-[10px]">
+                            <option value="default">No Category</option>
+                            <option value="Groceries">Groceries</option>
+                            <option value="Gas">Gas</option>
+                            <option value="Travel">Travel</option>
+                            <option value="Repairs">Repairs</option>
+                            <option value="Subscription">Subscription/Bill</option>
+                            <option value="Misc">Misc</option>
+                        </select>
+                    </label>
                     <label className="block ml-[32px]">Cost: <input type='number' className="text-[black] bg-[lightgrey] pl-[5px] border-[1px] border-[solid] border-[black] rounded-[10px]" onChange={e => transactionInfo.cost = e.target.value} /></label>
                     <button className="text-[12px] text-[white] bg-[darkblue]" onClick={() => handleAddTransaction(transactionInfo.date, transactionInfo.category, transactionInfo.cost)}>Save</button>
                 </div>

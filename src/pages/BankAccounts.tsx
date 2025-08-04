@@ -20,47 +20,56 @@ export default function Accounts({ checkingInfo, setCheckingInfo, creditInfo, se
 
 
     function handleAddAccount() { // TODO: Make a switch for each account type
-        let accountNumber: number;
+        let name: string, balance: string, limit: string, goal: string, rewards: string;
         switch (type) {
             case 'Credit':
+                name = nameRef.current.value;
+                balance = balanceRef.current.value;
+                limit = limitRef.current.value
+                rewards = rewardsRef.current.value;
                 updateCurrentCreditInfo(draft => {
                     draft.push({
-                        id: 'Cr' + nameRef.current.value + currentCreditInfo.length,
+                        id: 'Cr' + name + currentCreditInfo.length,
                         type: 'Credit',
-                        name: nameRef.current.value ? nameRef.current.value : 'Default',
+                        name: name ? name : 'Default',
                         payments: [],
                         transactions: [],
-                        currentBalance: balanceRef.current.value ? Number(balanceRef.current.value) : 0,
-                        limit: Number(limitRef.current.value),
-                        rewards: Number(rewardsRef.current.value)
+                        currentBalance: balance ? Number(balance) : 0,
+                        limit: Number(limit),
+                        rewards: Number(rewards)
                     })
                 });
                 setAddingAccount(false);
                 break;
             case 'Savings':
+                name = nameRef.current.value;
+                balance = balanceRef.current.value;
+                goal = goalRef.current.value;
                 updateCurrentSavingsInfo(draft => {
                     draft.push({
-                        id: 'Sa' + nameRef.current.value + currentSavingsInfo.length,
+                        id: 'Sa' + name + currentSavingsInfo.length,
                         type: 'Savings',
-                        name: nameRef.current.value ? nameRef.current.value : 'Default',
+                        name: name ? name : 'Default',
                         withdrawals: [],
                         deposits: [],
-                        currentBalance: balanceRef.current.value ? Number(balanceRef.current.value) : 0,
-                        goal: Number(goalRef.current.value)
+                        currentBalance: balance ? Number(balance) : 0,
+                        goal: Number(goal)
                     })
 
                 });
                 setAddingAccount(false);
                 break;
             case 'Checking':
+                name = nameRef.current.value;
+                balance = balanceRef.current.value;
                 updateCurrentCheckingInfo(draft => {
                     draft.push({
-                        id: 'Ch' + nameRef.current.value + currentCheckingInfo.length,
+                        id: 'Ch' + name + currentCheckingInfo.length,
                         type: 'Checking',
-                        name: nameRef.current.value ? nameRef.current.value : 'Default',
+                        name: name ? name : 'Default',
                         deposits: [],
                         transactions: [],
-                        currentBalance: balanceRef.current.value ? Number(balanceRef.current.value) : 0
+                        currentBalance: balance ? Number(balance) : 0
                     })
                 });
                 setAddingAccount(false);
