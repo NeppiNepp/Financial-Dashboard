@@ -3,8 +3,7 @@ import { useState, useRef, useEffect } from 'react'
 import { NewAccount, Account } from '../components/PageComponents'
 
 
-/*TODO: Create ways to add credit cards & savings accounts on this page, but seperated by type
- Afterwards add seperate pages that can only be accessed by clicking on the account - Displaying balance, all transactions, bills associated, etc. */
+/*TODO: Add seperate pages that can only be accessed by clicking on the account - Displaying balance, all transactions, bills associated, etc. */
 
 export default function Accounts({ checkingInfo, setCheckingInfo, creditInfo, setCreditInfo, savingsInfo, setSavingsInfo }) {
     const [ currentCheckingInfo, updateCurrentCheckingInfo ] = useImmer(checkingInfo);
@@ -25,7 +24,7 @@ export default function Accounts({ checkingInfo, setCheckingInfo, creditInfo, se
     }, [ checkingInfo, creditInfo, savingsInfo ]);
 
 
-    function handleAddAccount() { // TODO: Make a switch for each account type
+    function handleAddAccount() {
         let name: string, balance: string, limit: string, goal: string, rewards: string;
         switch (type) {
             case 'Credit':
