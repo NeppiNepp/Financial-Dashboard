@@ -7,9 +7,19 @@ import Bills from './pages/Bills'
 import Transactions from './pages/Transactions'
 
 export default function App() {
-  const [checkingInfo, setCheckingInfo] = useImmer(initialCheckingAccounts); // change to an array of three arrays holding each type of account
-  const [creditInfo, setCreditInfo] = useImmer(initialCreditAccounts);
-  const [savingsInfo, setSavingsInfo] = useImmer(initialSavingsAccounts);
+  /* Stores info from browser storage or sets to a default account page */
+  const [checkingInfo, setCheckingInfo] = useImmer(() => {
+    const savedInfo = localStorage.getItem('checkingInfo');
+    return savedInfo ? JSON.parse(savedInfo) : initialCheckingAccounts;
+  });
+  const [creditInfo, setCreditInfo] = useImmer(() => {
+    const savedInfo = localStorage.getItem('creditInfo');
+    return savedInfo ? JSON.parse(savedInfo) : initialCreditAccounts;
+  });
+  const [savingsInfo, setSavingsInfo] = useImmer(() => {
+    const savedInfo = localStorage.getItem('savingsInfo');
+    return savedInfo ? JSON.parse(savedInfo) : initialSavingsAccounts;
+  });
   const [billsInfo, setBillsInfo] = useImmer(null); // bill receipts
 
   return (

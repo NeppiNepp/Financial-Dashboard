@@ -249,7 +249,7 @@ export function LatestPayments({ accounts, savePayments, accountId }) {
 /* ------------------------------ New Account Component ------------------------------ */
 export function NewAccount({ handleAddAccount, addingAccount, setAddingAccount, nameRef, setType, type, balanceRef, limitRef, goalRef, rewardsRef }) {
     return (
-        <div className="grid place-items-center ml-[180px] min-h-[400px]"> {/* Create new accounts */}
+        <div className="grid place-items-center ml-[180px] min-h-[200px]"> {/* Create new accounts */}
             {addingAccount ?
             <div className="text-center">
                 <label className="block ml-[-45px]">Account Name: <input type="text" ref={nameRef} className="text-[black] bg-[lightgrey] pl-[5px] border-[1px] border-[solid] border-[black] rounded-[10px]" /></label>

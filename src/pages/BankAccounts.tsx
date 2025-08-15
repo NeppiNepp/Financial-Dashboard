@@ -39,7 +39,7 @@ export default function Accounts({ checkingInfo, setCheckingInfo, creditInfo, se
                         rewards: Number(rewards)
                     })
                 });
-                setAddingAccount(false);
+                setAddingAccount(false);d
                 break;
             case 'Savings':
                 name = nameRef.current.value;
@@ -81,13 +81,17 @@ export default function Accounts({ checkingInfo, setCheckingInfo, creditInfo, se
     function handleSave() {
         setCheckingInfo(currentCheckingInfo);
         setCreditInfo(currentCreditInfo);
-        setSavingsInfo(currentSavingsInfo)
+        setSavingsInfo(currentSavingsInfo);
+        localStorage.setItem('checkingInfo', JSON.stringify(currentCheckingInfo));
+        localStorage.setItem('creditInfo', JSON.stringify(currentCreditInfo));
+        localStorage.setItem('savingsInfo', JSON.stringify(currentSavingsInfo));
+
     }
 
 
     return (  // create a component to make each section with less repeating
         <div className="text-center">
-            <h1 className="block text-center ml-[190px]">Accounts Page</h1>
+            <h1 className="block text-center ml-[190px]">Accounts</h1>
             <NewAccount
                 handleAddAccount={handleAddAccount}
                 addingAccount={addingAccount}
@@ -141,7 +145,7 @@ export default function Accounts({ checkingInfo, setCheckingInfo, creditInfo, se
                 </div>
                 )}
             </div>
-            <button className="ml-[190px] text-[white] bg-[darkblue]" onClick={handleSave}>Save Changes</button>
+            <button className="ml-[190px] mt-[50px] mb-[50px] text-[white] bg-[darkblue]" onClick={handleSave}>Save Changes</button>
         </div>
     )
 }
