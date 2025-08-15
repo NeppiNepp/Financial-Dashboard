@@ -1,5 +1,5 @@
 import { useImmer } from 'use-immer'
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { NewAccount, Account } from '../components/PageComponents'
 
 
@@ -17,6 +17,12 @@ export default function Accounts({ checkingInfo, setCheckingInfo, creditInfo, se
     const limitRef = useRef(null);
     const goalRef = useRef(null);
     const rewardsRef = useRef(null);
+
+    useEffect(() => { /* stores account information locally ---- needs to be changed to server for security later */
+        localStorage.setItem('checkingInfo', JSON.stringify(currentCheckingInfo));
+        localStorage.setItem('creditInfo', JSON.stringify(currentCreditInfo));
+        localStorage.setItem('savingsInfo', JSON.stringify(currentSavingsInfo));
+    }, [ checkingInfo, creditInfo, savingsInfo ]);
 
 
     function handleAddAccount() { // TODO: Make a switch for each account type
@@ -82,10 +88,6 @@ export default function Accounts({ checkingInfo, setCheckingInfo, creditInfo, se
         setCheckingInfo(currentCheckingInfo);
         setCreditInfo(currentCreditInfo);
         setSavingsInfo(currentSavingsInfo);
-        localStorage.setItem('checkingInfo', JSON.stringify(currentCheckingInfo));
-        localStorage.setItem('creditInfo', JSON.stringify(currentCreditInfo));
-        localStorage.setItem('savingsInfo', JSON.stringify(currentSavingsInfo));
-
     }
 
 
