@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 
 /* ------------------------------ Deposits Component ------------------------------ */
-export function LatestDeposits({ accounts, saveDeposits, accountId }) {
+export function LatestDeposits({ accounts, saveDeposits, accountId }: { accounts: any, saveDeposits: any, accountId: any }) {
     const currentDate = new Date();
     const defaultDate = `${currentDate.getFullYear()}-${currentDate.getMonth()}-${currentDate.getDate()}`
     const currentAccount = accounts.find((account: { id: string; }) => account.id === accountId);
@@ -60,7 +60,7 @@ export function LatestDeposits({ accounts, saveDeposits, accountId }) {
 
 
 /* ------------------------------ Transactions Component ------------------------------ */
-export function LatestTransactions({ accounts, saveTransactions, accountId }) {
+export function LatestTransactions({ accounts, saveTransactions, accountId }: { accounts: any, saveTransactions: any, accountId: any }) {
     const currentAccount = accounts.find((account: { id: string; }) => account.id === accountId);
     const [ addingTransact, setAddingTransaction ] = useState(false);
     const transactionInfo = {
@@ -134,7 +134,7 @@ export function LatestTransactions({ accounts, saveTransactions, accountId }) {
 
 
 /* ------------------------------ Withdrawals Component ------------------------------ */
-export function LatestWithdrawals({ accounts, saveWithdrawals, accountId }) {
+export function LatestWithdrawals({ accounts, saveWithdrawals, accountId }: { accounts: any, saveWithdrawals: any, accountId: any }) {
     const currentAccount = accounts.find((account: { id: string; }) => account.id === accountId);
     const [ addingWithdrawal, setAddingWithdrawal ] = useState(false);
     const withdrawalInfo = {
@@ -191,7 +191,10 @@ export function LatestWithdrawals({ accounts, saveWithdrawals, accountId }) {
 
 
 /* ------------------------------ Payments Component ------------------------------ */
-export function LatestPayments({ accounts, savePayments, accountId }) {
+export function LatestPayments({
+    accounts, savePayments, accountId }: {
+    accounts: any, savePayments: any, accountId: any
+    }) {
     const currentAccount = accounts.find((account: { id: string; }) => account.id === accountId);
     const [ addingPayment, setAddingPayment ] = useState(false);
     const paymentInfo = {
@@ -247,7 +250,10 @@ export function LatestPayments({ accounts, savePayments, accountId }) {
 }
 
 /* ------------------------------ New Account Component ------------------------------ */
-export function NewAccount({ handleAddAccount, addingAccount, setAddingAccount, nameRef, setType, type, balanceRef, limitRef, goalRef, rewardsRef }) {
+export function NewAccount({
+    handleAddAccount, addingAccount, setAddingAccount, nameRef, setType, type, balanceRef, limitRef, goalRef, rewardsRef }: {
+    handleAddAccount: any, addingAccount: any, setAddingAccount: any, nameRef: any, setType: any, type: any, balanceRef: any, limitRef: any, goalRef: any, rewardsRef: any
+    }) {
     return (
         <div className="grid place-items-center ml-[180px] min-h-[200px]"> {/* Create new accounts */}
             {addingAccount ?
@@ -276,10 +282,13 @@ export function NewAccount({ handleAddAccount, addingAccount, setAddingAccount, 
 
 
 /* ------------------------------ Display Accounts Component ------------------------------ */
-export function Account({ account, type, currentInfo, updateCurrentInfo }) {
+export function Account({
+    account, type, currentInfo, updateCurrentInfo }: {
+    account: any, type: any, currentInfo: any, updateCurrentInfo: any
+    }) {
     function removeAccount() { // fix this to remove based on some key
         const accountIndex = currentInfo.findIndex((cAccount: { id: string; }) => cAccount.id === account.id);
-        updateCurrentInfo(draft => {
+        updateCurrentInfo((draft: any[]) => {
             draft.splice(accountIndex, 1)
         });
     }

@@ -1,22 +1,28 @@
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow, TableFooter } from "@/components/ui/table";
 import { useImmer } from "use-immer";
 
-export default function Transactions({ checkingInfo, creditInfo, savingsInfo, setCheckingInfo, setCreditInfo, setSavingsInfo }) {
+export default function Transactions({
+    checkingInfo, creditInfo, savingsInfo, setCheckingInfo, setCreditInfo, setSavingsInfo }: {
+    checkingInfo: any, creditInfo: any, savingsInfo: any, setCheckingInfo: any, setCreditInfo: any, setSavingsInfo: any
+    }) {
     const [ currentCheckingInfo, updateCurrentCheckingInfo ] = useImmer(checkingInfo);
     const [ currentCreditInfo, updateCurrentCreditInfo ] = useImmer(creditInfo);
     const [ currentSavingsInfo, updateCurrentSavingsInfo ] = useImmer(savingsInfo);
-    const checkingTransactions = currentCheckingInfo.flatMap(account => account.transactions.map(transaction => transaction))
-    const checkingDeposits = currentCheckingInfo.flatMap(account => account.deposits.map(deposit => deposit));;
-    const creditTransactions = currentCreditInfo.flatMap(account => account.transactions.map(transaction => transaction));;
-    const creditPayments = currentCreditInfo.flatMap(account => account.payments.map(payment => payment));;
-    const savingsWithdrawals = currentSavingsInfo.flatMap(account => account.withdrawals.map(withdrawal => withdrawal));;
-    const savingsDeposits = currentSavingsInfo.flatMap(account => account.deposits.map(deposit => deposit));;
+    const checkingTransactions = currentCheckingInfo.flatMap((account : any) => account.transactions.map((transaction: any) => transaction))
+    const checkingDeposits = currentCheckingInfo.flatMap((account : any) => account.deposits.map((deposit: any) => deposit));;
+    const creditTransactions = currentCreditInfo.flatMap((account : any) => account.transactions.map((transaction: any) => transaction));;
+    const creditPayments = currentCreditInfo.flatMap((account : any) => account.payments.map((payment: any) => payment));;
+    const savingsWithdrawals = currentSavingsInfo.flatMap((account : any) => account.withdrawals.map((withdrawal: any) => withdrawal));;
+    const savingsDeposits = currentSavingsInfo.flatMap((account : any) => account.deposits.map((deposit: any) => deposit));;
+
+    setCheckingInfo; setCreditInfo; setSavingsInfo; updateCurrentCheckingInfo; updateCurrentCreditInfo; updateCurrentSavingsInfo;
+    creditTransactions; creditPayments; savingsWithdrawals; savingsDeposits; // leave here to remove errors temporarily
 
 
-    function calculateTotal( info ) {
+    function calculateTotal( info: any ) {
         let total = 0;
 
-        info.forEach(e => {
+        info.forEach((e: any) => {
             if (e.cost) {
                 total += e.cost;
             } else if (e.amount) {
@@ -43,7 +49,7 @@ export default function Transactions({ checkingInfo, creditInfo, savingsInfo, se
                     </TableHeader>
                     <TableBody className="border-[2px] h-100">
                         {checkingTransactions.length > 0 ?
-                            checkingTransactions.map(transaction => (
+                            checkingTransactions.map((transaction: any) => (
                                 <Transaction transaction={transaction} />
                             )) :
                             <TableRow>
@@ -72,7 +78,7 @@ export default function Transactions({ checkingInfo, creditInfo, savingsInfo, se
                     </TableHeader>
                     <TableBody className="border-[2px] h-100">
                         {checkingDeposits.length > 0 ?
-                            checkingDeposits.map(deposit => (
+                            checkingDeposits.map((deposit: any) => (
                                 <Deposit deposit={deposit} />
                             )) :
                             <TableRow>
@@ -97,7 +103,7 @@ export default function Transactions({ checkingInfo, creditInfo, savingsInfo, se
 
 
 // These are just for checking accounts, need to go more in-depth and create components for accounts
-export function Transaction({ transaction }) {
+export function Transaction({ transaction }: { transaction: any }) {
     return (
         <TableRow className="border-[2px]" key={"TRAN" + transaction.id}>
             <TableCell className="border-[1px]">{'TRAN' + transaction.id}</TableCell>
@@ -108,7 +114,7 @@ export function Transaction({ transaction }) {
     )
 }
 
-export function Deposit({ deposit }) {
+export function Deposit({ deposit }: { deposit: any }) {
     return (
         <TableRow className="border-[2px]" key={"DEP" + deposit.id}>
             <TableCell className="border-[1px]">{'DEP' + deposit.id}</TableCell>

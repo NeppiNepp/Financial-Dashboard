@@ -5,7 +5,10 @@ import { NewAccount, Account } from '../components/PageComponents'
 
 /*TODO: Add seperate pages that can only be accessed by clicking on the account - Displaying balance, all transactions, bills associated, etc. */
 
-export default function Accounts({ checkingInfo, setCheckingInfo, creditInfo, setCreditInfo, savingsInfo, setSavingsInfo }) {
+export default function Accounts({
+    checkingInfo, setCheckingInfo, creditInfo, setCreditInfo, savingsInfo, setSavingsInfo }:{
+    checkingInfo: any, setCheckingInfo: any, creditInfo: any, setCreditInfo: any, savingsInfo: any, setSavingsInfo: any
+    }) {
     const [ currentCheckingInfo, updateCurrentCheckingInfo ] = useImmer(checkingInfo);
     const [ currentCreditInfo, updateCurrentCreditInfo ] = useImmer(creditInfo);
     const [ currentSavingsInfo, updateCurrentSavingsInfo ] = useImmer(savingsInfo);
@@ -17,6 +20,7 @@ export default function Accounts({ checkingInfo, setCheckingInfo, creditInfo, se
     const goalRef = useRef(null);
     const rewardsRef = useRef(null);
 
+
     useEffect(() => { /* stores account information locally ---- needs to be changed to server for security later */
         localStorage.setItem('checkingInfo', JSON.stringify(currentCheckingInfo));
         localStorage.setItem('creditInfo', JSON.stringify(currentCreditInfo));
@@ -27,12 +31,27 @@ export default function Accounts({ checkingInfo, setCheckingInfo, creditInfo, se
     function handleAddAccount() {
         let name: string, balance: string, limit: string, goal: string, rewards: string;
         switch (type) {
+            case 'Checking':
+                name = nameRef.current.value;
+                balance = balanceRef.current.value;
+                updateCurrentCheckingInfo((draft: any[]) => {
+                    draft.push({
+                        id: 'Ch' + name + currentCheckingInfo.length,
+                        type: 'Checking',
+                        name: name ? name : 'Default',
+                        deposits: [],
+                        transactions: [],
+                        currentBalance: balance ? Number(balance) : 0
+                    })
+                });
+                setAddingAccount(false);
+                break;
             case 'Credit':
                 name = nameRef.current.value;
                 balance = balanceRef.current.value;
-                limit = limitRef.current.value
+                limit = limitRef.current.value;
                 rewards = rewardsRef.current.value;
-                updateCurrentCreditInfo(draft => {
+                updateCurrentCreditInfo((draft: any[]) => {
                     draft.push({
                         id: 'Cr' + name + currentCreditInfo.length,
                         type: 'Credit',
@@ -44,13 +63,13 @@ export default function Accounts({ checkingInfo, setCheckingInfo, creditInfo, se
                         rewards: Number(rewards)
                     })
                 });
-                setAddingAccount(false);d
+                setAddingAccount(false);
                 break;
             case 'Savings':
                 name = nameRef.current.value;
                 balance = balanceRef.current.value;
                 goal = goalRef.current.value;
-                updateCurrentSavingsInfo(draft => {
+                updateCurrentSavingsInfo((draft: any[]) => {
                     draft.push({
                         id: 'Sa' + name + currentSavingsInfo.length,
                         type: 'Savings',
@@ -61,21 +80,6 @@ export default function Accounts({ checkingInfo, setCheckingInfo, creditInfo, se
                         goal: Number(goal)
                     })
 
-                });
-                setAddingAccount(false);
-                break;
-            case 'Checking':
-                name = nameRef.current.value;
-                balance = balanceRef.current.value;
-                updateCurrentCheckingInfo(draft => {
-                    draft.push({
-                        id: 'Ch' + name + currentCheckingInfo.length,
-                        type: 'Checking',
-                        name: name ? name : 'Default',
-                        deposits: [],
-                        transactions: [],
-                        currentBalance: balance ? Number(balance) : 0
-                    })
                 });
                 setAddingAccount(false);
                 break;
@@ -107,7 +111,7 @@ export default function Accounts({ checkingInfo, setCheckingInfo, creditInfo, se
             />
             <p className="text-[30px] text-center ml-[190px]">Checking Accounts</p>
             <div className="grid grid-cols-[1fr_1fr] ml-[325px] px-[25px] py-0"> {/* maps out each account into a grid */}
-                {currentCheckingInfo.map(account =>
+                {currentCheckingInfo.map((account: any) =>
                     <div key={account.id}>
                         <Account
                             account={account}
@@ -121,7 +125,7 @@ export default function Accounts({ checkingInfo, setCheckingInfo, creditInfo, se
             <hr className="mt-[40px] mb-[40px]" />
             <p className="text-[30px] text-center ml-[190px]">Credit Cards</p> {/* Only show if accounts exist? */}
             <div className="grid grid-cols-[1fr_1fr] ml-[325px] px-[25px] py-0">
-                {currentCreditInfo.map(account =>
+                {currentCreditInfo.map((account: any) =>
                     <div key={account.id}>
                         <Account
                             account={account}
@@ -135,7 +139,7 @@ export default function Accounts({ checkingInfo, setCheckingInfo, creditInfo, se
             <hr className="mt-[40px] mb-[40px]" />
             <p className="text-[30px] text-center ml-[190px] mt-[40px]">Savings Accounts</p> {/* Only show if accounts exist? */}
             <div className="grid grid-cols-[1fr_1fr] ml-[325px] px-[25px] py-0">
-                {currentSavingsInfo.map(account =>
+                {currentSavingsInfo.map((account: any) =>
                 <div key={account.id}>
                         <Account
                             account={account}
