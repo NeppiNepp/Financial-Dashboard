@@ -49,7 +49,6 @@ export default function Accounts({
                 setAddingAccount(false);
                 break;
             case 'Credit':
-                // @ts-ignore
                 name = nameRef.current.value;
                 // @ts-ignore
                 balance = balanceRef.current.value;
