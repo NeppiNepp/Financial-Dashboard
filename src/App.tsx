@@ -5,6 +5,7 @@ import Homepage from './pages/Homepage'
 import Accounts from './pages/BankAccounts'
 import Bills from './pages/Bills'
 import Transactions from './pages/Transactions'
+import PageNotFound from './components/PageNotFound'
 
 export default function App() {
   /* Stores info from browser storage or sets to a default account page */
@@ -63,6 +64,10 @@ export default function App() {
             billsInfo={billsInfo}
             setBillsInfo={setBillsInfo}
           />}
+        />
+        <Route
+          path="*"
+          element={<PageNotFound />}
         />
       </Routes>
     </>
