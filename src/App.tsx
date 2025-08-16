@@ -27,7 +27,7 @@ export default function App() {
       <Navbar />
       <Routes>
         <Route
-          path='/dashboard'
+          path='/'
           element={<Homepage
             checkingInfo={checkingInfo}
             creditInfo={creditInfo}
