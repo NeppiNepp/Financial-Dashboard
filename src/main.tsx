@@ -6,9 +6,7 @@ import App from './App.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <HashRouter
-      basename="/Financial-Dashboard"
-    >
+    <HashRouter basename="/">
       <App />
     </HashRouter>
   </StrictMode>
