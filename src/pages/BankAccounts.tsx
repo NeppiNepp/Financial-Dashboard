@@ -33,7 +33,9 @@ export default function Accounts({
         switch (type) {
             case 'Checking':
                 /* could use @ts-ignore to ignore errors */
+                // @ts-ignore
                 name = nameRef.current.value;
+                // @ts-ignore
                 balance = balanceRef.current.value;
                 updateCurrentCheckingInfo((draft: any[]) => {
                     draft.push({
@@ -48,9 +50,13 @@ export default function Accounts({
                 setAddingAccount(false);
                 break;
             case 'Credit':
+                // @ts-ignore
                 name = nameRef.current.value;
+                // @ts-ignore
                 balance = balanceRef.current.value;
+                // @ts-ignore
                 limit = limitRef.current.value;
+                // @ts-ignore
                 rewards = rewardsRef.current.value;
                 updateCurrentCreditInfo((draft: any[]) => {
                     draft.push({
@@ -67,8 +73,11 @@ export default function Accounts({
                 setAddingAccount(false);
                 break;
             case 'Savings':
+                // @ts-ignore
                 name = nameRef.current.value;
+                // @ts-ignore
                 balance = balanceRef.current.value;
+                // @ts-ignore
                 goal = goalRef.current.value;
                 updateCurrentSavingsInfo((draft: any[]) => {
                     draft.push({
