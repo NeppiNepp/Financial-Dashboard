@@ -18,6 +18,7 @@ export function LatestDeposits({ accounts, saveDeposits, accountId }: { accounts
             if (draftToUpdate) {
                 draftToUpdate.deposits.push({
                     id: draftToUpdate.deposits.length + 1,
+                    account: currentAccount.name,
                     date: date ? date : defaultDate,
                     amount: Number(amount)
                 })
@@ -77,6 +78,7 @@ export function LatestTransactions({ accounts, saveTransactions, accountId }: { 
             if (draftToUpdate) {
                 draftToUpdate.transactions.push({
                     id: draftToUpdate.transactions.length + 1,
+                    account: currentAccount.name,
                     date: date ? date : defaultDate,
                     category: category ? category : 'Misc',
                     cost: Number(cost)
@@ -150,6 +152,7 @@ export function LatestWithdrawals({ accounts, saveWithdrawals, accountId }: { ac
             if (draftToUpdate) {
                 draftToUpdate.withdrawals.push({
                     id: draftToUpdate.withdrawals.length + 1,
+                    account: currentAccount.name,
                     date: date ? date : defaultDate,
                     amount: Number(amount)
                 })
@@ -210,6 +213,7 @@ export function LatestPayments({
             if (draftToUpdate) {
                 draftToUpdate.payments.push({
                     id: draftToUpdate.payments.length + 1,
+                    account: currentAccount.name,
                     date: date ? date : defaultDate,
                     amount: Number(amount)
                 })

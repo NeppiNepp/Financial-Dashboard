@@ -74,10 +74,10 @@ export default function App() {
   )
 }
 
-interface deposit { id: number, date: string, amount: number }
-interface withdrawal { id: number, date: string, amount: number }
-interface payment { id: number, date: string, amount: number }
-interface transaction { id: number, date: string, category: string, cost: number }
+interface deposit { id: number, account: string, date: string, amount: number }
+interface withdrawal { id: number, account: string, date: string, amount: number }
+interface payment { id: number, account: string, date: string, amount: number }
+interface transaction { id: number, account: string, date: string, category: string, cost: number }
 
 interface checkingAccount {
     id: string,

@@ -16,7 +16,7 @@ export default function Transactions({
     const savingsDeposits = currentSavingsInfo.flatMap((account : any) => account.deposits.map((deposit: any) => deposit));;
 
     setCheckingInfo; setCreditInfo; setSavingsInfo; updateCurrentCheckingInfo; updateCurrentCreditInfo; updateCurrentSavingsInfo;
-    creditTransactions; creditPayments; savingsWithdrawals; savingsDeposits; // leave here to remove errors temporarily
+    // leave here to remove errors temporarily
 
 
     function calculateTotal( info: any ) {
@@ -37,29 +37,32 @@ export default function Transactions({
         <>
             <h1 className="block text-center ml-[190px]">Transactions Page</h1>
             <div className="mt-[100px] ml-[450px] grid grid-cols-[1fr_1fr] gap-x-[100px]">
-                <Table className=" w-[400px] border-[2px]">
+                <Table className="max-w-[550px] min-h-[500px] max-h-[500px] border-[2px] table-fixed">
                     <TableCaption className="font-bold text-[white]">Checking Account Purchases</TableCaption>
                     <TableHeader>
                         <TableRow>
                             <TableHead className="border-[1px] text-[white]">Transaction ID</TableHead>
+                            <TableHead className="border-[1px] text-[white]">Account Name</TableHead>
                             <TableHead className="border-[1px] text-[white]">Date</TableHead>
                             <TableHead className="border-[1px] text-[white]">Category</TableHead>
                             <TableHead className="border-[1px] text-[white] text-right">Amount</TableHead>
                         </TableRow>
                     </TableHeader>
-                    <TableBody className="border-[2px] h-100">
-                        {checkingTransactions.length > 0 ?
-                            checkingTransactions.map((transaction: any) => (
-                                <Transaction transaction={transaction} />
-                            )) :
-                            <TableRow>
-                                <TableCell colSpan={4} className="text-center">No Transaction History</TableCell>
-                            </TableRow>
-                        }
-                    </TableBody>
+                    <div className="overflow-y-auto max-h-[420px] min-w-[565px]"> {/* fix this for a responsive/better design on each component */}
+                        <TableBody>
+                            {checkingTransactions.length > 0 ?
+                                checkingTransactions.map((transaction: any) => (
+                                    <Transaction transaction={transaction} />
+                                )) :
+                                <TableRow>
+                                    <TableCell colSpan={5} className="text-center">No Transaction History</TableCell>
+                                </TableRow>
+                            }
+                        </TableBody>
+                    </div>
                     <TableFooter>
                         <TableRow>
-                            <TableCell colSpan={3}>Total</TableCell>
+                            <TableCell colSpan={4}>Total</TableCell>
                             <TableCell className="text-right">
                                 -${calculateTotal(checkingTransactions)}
                             </TableCell>
@@ -67,30 +70,162 @@ export default function Transactions({
                     </TableFooter>
                 </Table>
 {/*---------------------------------------------------------------------------------------------------------------------------------------*/}
-                <Table className="w-[400px] border-[2px]">
+                <Table className="max-w-[550px] min-h-[500px] max-h-[500px] border-[2px] table-fixed">
                     <TableCaption className="font-bold text-[white]">Checking Account Deposits</TableCaption>
                     <TableHeader>
                         <TableRow>
                             <TableHead className="border-[1px] text-[white]">Deposit ID</TableHead>
+                            <TableHead className="border-[1px] text-[white]">Account Name</TableHead>
                             <TableHead className="border-[1px] text-[white]">Date</TableHead>
                             <TableHead className="border-[1px] text-[white] text-right">Amount</TableHead>
                         </TableRow>
                     </TableHeader>
-                    <TableBody className="border-[2px] h-100">
-                        {checkingDeposits.length > 0 ?
-                            checkingDeposits.map((deposit: any) => (
-                                <Deposit deposit={deposit} />
-                            )) :
-                            <TableRow>
-                                <TableCell colSpan={3} className="text-center">No Deposit History</TableCell>
-                            </TableRow>
-                        }
-                    </TableBody>
+                    <div className="overflow-y-auto max-h-[420px] min-w-[565px]">
+                        <TableBody>
+                            {checkingDeposits.length > 0 ?
+                                checkingDeposits.map((deposit: any) => (
+                                    <Deposit deposit={deposit} />
+                                )) :
+                                <TableRow>
+                                    <TableCell colSpan={4} className="text-center">No Deposit History</TableCell>
+                                </TableRow>
+                            }
+                        </TableBody>
+                    </div>
                     <TableFooter>
                         <TableRow>
-                            <TableCell colSpan={2}>Total</TableCell>
+                            <TableCell colSpan={3}>Total</TableCell>
                             <TableCell className="text-right">
                                 +${calculateTotal(checkingDeposits)}
+                            </TableCell>
+                        </TableRow>
+                    </TableFooter>
+                </Table>
+{/*---------------------------------------------------------------------------------------------------------------------------------------*/}
+                <Table className="w-[550px] h-[500px] max-h-[500px] border-[2px] table-fixed mt-[80px]">
+                    <TableCaption className="font-bold text-[white]">Credit Card Purchases</TableCaption>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead className="border-[1px] text-[white]">Transaction ID</TableHead>
+                            <TableHead className="border-[1px] text-[white]">Account Name</TableHead>
+                            <TableHead className="border-[1px] text-[white]">Date</TableHead>
+                            <TableHead className="border-[1px] text-[white]">Category</TableHead>
+                            <TableHead className="border-[1px] text-[white] text-right">Amount</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <div className="overflow-y-auto max-h-[420px] min-w-[565px]">
+                        <TableBody className="">
+                            {creditTransactions.length > 0 ?
+                                creditTransactions.map((transaction: any) => (
+                                    <Transaction transaction={transaction} />
+                                )) :
+                                <TableRow>
+                                    <TableCell colSpan={5} className="text-center">No Transaction History</TableCell>
+                                </TableRow>
+                            }
+                        </TableBody>
+                    </div>
+                    <TableFooter>
+                        <TableRow>
+                            <TableCell colSpan={4}>Total</TableCell>
+                            <TableCell className="text-right">
+                                +${calculateTotal(creditTransactions)}
+                            </TableCell>
+                        </TableRow>
+                    </TableFooter>
+                </Table>
+{/*---------------------------------------------------------------------------------------------------------------------------------------*/}
+                <Table className="max-w-[550px] h-[500px] max-h-[500px] border-[2px] table-fixed mt-[80px]">
+                    <TableCaption className="font-bold text-[white]">Credit Card Payments</TableCaption>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead className="border-[1px] text-[white]">Payment ID</TableHead>
+                            <TableHead className="border-[1px] text-[white]">Account Name</TableHead>
+                            <TableHead className="border-[1px] text-[white]">Date</TableHead>
+                            <TableHead className="border-[1px] text-[white] text-right">Amount</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <div className="overflow-y-auto max-h-[420px] min-w-[565px]">
+                        <TableBody className="">
+                            {creditPayments.length > 0 ?
+                                creditPayments.map((payment: any) => (
+                                    <Payment payment={payment} />
+                                )) :
+                                <TableRow>
+                                    <TableCell colSpan={4} className="text-center">No Payment History</TableCell>
+                                </TableRow>
+                            }
+                        </TableBody>
+                    </div>
+                    <TableFooter>
+                        <TableRow>
+                            <TableCell colSpan={3}>Total</TableCell>
+                            <TableCell className="text-right">
+                                -${calculateTotal(creditPayments)}
+                            </TableCell>
+                        </TableRow>
+                    </TableFooter>
+                </Table>
+{/*---------------------------------------------------------------------------------------------------------------------------------------*/}
+                <Table className="max-w-[550px] h-[500px] max-h-[500px] border-[2px] table-fixed mt-[80px]">
+                    <TableCaption className="font-bold text-[white]">Savings Withdrawals</TableCaption>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead className="border-[1px] text-[white]">Withdrawal ID</TableHead>
+                            <TableHead className="border-[1px] text-[white]">Account Name</TableHead>
+                            <TableHead className="border-[1px] text-[white]">Date</TableHead>
+                            <TableHead className="border-[1px] text-[white] text-right">Amount</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <div className="overflow-y-auto max-h-[420px] min-w-[565px]">
+                        <TableBody className="">
+                            {savingsWithdrawals.length > 0 ?
+                                savingsWithdrawals.map((withdrawal: any) => (
+                                    <Withdrawal withdrawal={withdrawal} />
+                                )) :
+                                <TableRow>
+                                    <TableCell colSpan={4} className="text-center">No Withdrawal History</TableCell>
+                                </TableRow>
+                            }
+                        </TableBody>
+                    </div>
+                    <TableFooter>
+                        <TableRow>
+                            <TableCell colSpan={3}>Total</TableCell>
+                            <TableCell className="text-right">
+                                -${calculateTotal(savingsWithdrawals)}
+                            </TableCell>
+                        </TableRow>
+                    </TableFooter>
+                </Table>
+{/*---------------------------------------------------------------------------------------------------------------------------------------*/}
+                <Table className="max-w-[550px] min-h-[500px] max-h-[500px] border-[2px] table-fixed mt-[80px]">
+                    <TableCaption className="font-bold text-[white]">Savings Deposits</TableCaption>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead className="border-[1px] text-[white]">Deposit ID</TableHead>
+                            <TableHead className="border-[1px] text-[white]">Account Name</TableHead>
+                            <TableHead className="border-[1px] text-[white]">Date</TableHead>
+                            <TableHead className="border-[1px] text-[white] text-right">Amount</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <div className="overflow-y-auto max-h-[420px] min-w-[565px]">
+                        <TableBody className="">
+                            {savingsDeposits.length > 0 ?
+                                savingsDeposits.map((deposit: any) => (
+                                    <Deposit deposit={deposit} />
+                                )) :
+                                <TableRow>
+                                    <TableCell colSpan={4} className="text-center">No Deposit History</TableCell>
+                                </TableRow>
+                            }
+                        </TableBody>
+                    </div>
+                    <TableFooter>
+                        <TableRow>
+                            <TableCell colSpan={3}>Total</TableCell>
+                            <TableCell className="text-right">
+                                +${calculateTotal(savingsDeposits)}
                             </TableCell>
                         </TableRow>
                     </TableFooter>
@@ -102,14 +237,16 @@ export default function Transactions({
 
 
 
-// These are just for checking accounts, need to go more in-depth and create components for accounts
+
+// fix ids, add on to each id instead of having seperate ones for each account transaction
 export function Transaction({ transaction }: { transaction: any }) {
     return (
         <TableRow className="border-[2px]" key={"TRAN" + transaction.id}>
-            <TableCell className="border-[1px]">{'TRAN' + transaction.id}</TableCell>
-            <TableCell className="border-[1px]">{transaction.date}</TableCell>
-            <TableCell className="border-[1px]">{transaction.category}</TableCell>
-            <TableCell className="border-[1px] text-right">${transaction.cost}</TableCell>
+            <TableCell className="border-[1px] min-w-[107px]">{'TRAN' + transaction.id}</TableCell>
+            <TableCell className="border-[1px] max-w-[110px] whitespace-normal">{transaction.account}</TableCell>
+            <TableCell className="border-[1px] min-w-[109px]">{transaction.date}</TableCell>
+            <TableCell className="border-[1px] min-w-[110px]">{transaction.category}</TableCell>
+            <TableCell className="border-[1px] min-w-[110px] text-right">${transaction.cost}</TableCell>
         </TableRow>
     )
 }
@@ -117,9 +254,32 @@ export function Transaction({ transaction }: { transaction: any }) {
 export function Deposit({ deposit }: { deposit: any }) {
     return (
         <TableRow className="border-[2px]" key={"DEP" + deposit.id}>
-            <TableCell className="border-[1px]">{'DEP' + deposit.id}</TableCell>
-            <TableCell className="border-[1px]">{deposit.date}</TableCell>
-            <TableCell className="border-[1px] text-right">${deposit.amount}</TableCell>
+            <TableCell className="border-[1px] min-w-[135px]">{'DEP' + deposit.id}</TableCell>
+            <TableCell className="border-[1px] min-w-[137px] whitespace-normal">{deposit.account}</TableCell>
+            <TableCell className="border-[1px] min-w-[137px]">{deposit.date}</TableCell>
+            <TableCell className="border-[1px] min-w-[137px] text-right">${deposit.amount}</TableCell>
+        </TableRow>
+    )
+}
+
+export function Payment({ payment }: { payment: any }) {
+    return (
+        <TableRow className="border-[2px]" key={"PAY" + payment.id}>
+            <TableCell className="border-[1px] min-w-[135px]">{'PAY' + payment.id}</TableCell>
+            <TableCell className="border-[1px] max-w-[137px] whitespace-normal">{payment.account}</TableCell>
+            <TableCell className="border-[1px] min-w-[137px]">{payment.date}</TableCell>
+            <TableCell className="border-[1px] min-w-[137px] text-right">${payment.amount}</TableCell>
+        </TableRow>
+    )
+}
+
+export function Withdrawal({ withdrawal }: { withdrawal: any }) {
+    return (
+        <TableRow className="border-[2px]" key={"WI" + withdrawal.id}>
+            <TableCell className="border-[1px] min-w-[135px]">{'WI' + withdrawal.id}</TableCell>
+            <TableCell className="border-[1px] min-w-[137px] whitespace-normal">{withdrawal.account}</TableCell>
+            <TableCell className="border-[1px] min-w-[137px]">{withdrawal.date}</TableCell>
+            <TableCell className="border-[1px] min-w-[137px] text-right">${withdrawal.amount}</TableCell>
         </TableRow>
     )
 }
