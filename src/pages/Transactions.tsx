@@ -241,9 +241,9 @@ export default function Transactions({
 // fix ids, add on to each id instead of having seperate ones for each account transaction
 export function Transaction({ transaction }: { transaction: any }) {
     return (
-        <TableRow className="border-[2px]" key={"TRAN" + transaction.id}>
+        <TableRow className="border-[2px] max-w-[100px]" key={"TRAN" + transaction.id}>
             <TableCell className="border-[1px] min-w-[107px]">{'TRAN' + transaction.id}</TableCell>
-            <TableCell className="border-[1px] max-w-[110px] whitespace-normal">{transaction.account}</TableCell>
+            <TableCell className="border-[1px] min-w-[110px] max-w-[110px] whitespace-normal">{transaction.account}</TableCell>
             <TableCell className="border-[1px] min-w-[109px]">{transaction.date}</TableCell>
             <TableCell className="border-[1px] min-w-[110px]">{transaction.category}</TableCell>
             <TableCell className="border-[1px] min-w-[110px] text-right">${transaction.cost}</TableCell>
@@ -266,7 +266,7 @@ export function Payment({ payment }: { payment: any }) {
     return (
         <TableRow className="border-[2px]" key={"PAY" + payment.id}>
             <TableCell className="border-[1px] min-w-[135px]">{'PAY' + payment.id}</TableCell>
-            <TableCell className="border-[1px] max-w-[137px] whitespace-normal">{payment.account}</TableCell>
+            <TableCell className="border-[1px] min-w-[137px] max-w-[137px] whitespace-normal">{payment.account}</TableCell>
             <TableCell className="border-[1px] min-w-[137px]">{payment.date}</TableCell>
             <TableCell className="border-[1px] min-w-[137px] text-right">${payment.amount}</TableCell>
         </TableRow>

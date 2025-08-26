@@ -32,6 +32,7 @@ export default function Accounts({
         let name: string, balance: string, limit: string, goal: string, rewards: string;
         switch (type) {
             case 'Checking':
+                                                            /* Solve the errors and remove @ts-ignore */
                 // @ts-ignore
                 name = nameRef.current.value;
                 // @ts-ignore
@@ -49,7 +50,8 @@ export default function Accounts({
                 setAddingAccount(false);
                 break;
             case 'Credit':
-                name = nameRef.current; // remove value
+                // @ts-ignore
+                name = nameRef.current.value;
                 // @ts-ignore
                 balance = balanceRef.current.value;
                 // @ts-ignore
