@@ -14,11 +14,11 @@ export default function Accounts({
     const [ currentSavingsInfo, updateCurrentSavingsInfo ] = useImmer(savingsInfo);
     const [ addingAccount, setAddingAccount ] = useState(false);
     const [ type, setType ] = useState('');
-    const nameRef = useRef(null);
-    const balanceRef = useRef(null);
-    const limitRef = useRef(null);
-    const goalRef = useRef(null);
-    const rewardsRef = useRef(null);
+    const nameRef = useRef<string>('');
+    const balanceRef = useRef<string>('');
+    const limitRef = useRef<string>('');
+    const goalRef = useRef<string>('');
+    const rewardsRef = useRef<string>('');
 
 
     useEffect(() => { /* stores account information locally ---- needs to be changed to server for security later */
@@ -32,7 +32,6 @@ export default function Accounts({
         let name: string, balance: string, limit: string, goal: string, rewards: string;
         switch (type) {
             case 'Checking':
-                /* could use @ts-ignore to ignore errors */
                 // @ts-ignore
                 name = nameRef.current.value;
                 // @ts-ignore
@@ -50,8 +49,7 @@ export default function Accounts({
                 setAddingAccount(false);
                 break;
             case 'Credit':
-                // @ts-ignore
-                name = nameRef.current.value;
+                name = nameRef.current; // remove value
                 // @ts-ignore
                 balance = balanceRef.current.value;
                 // @ts-ignore
@@ -102,7 +100,6 @@ export default function Accounts({
         setCreditInfo(currentCreditInfo);
         setSavingsInfo(currentSavingsInfo);
     }
-
 
     return (  // create a component to make each section with less repeating
         <div className="text-center">
