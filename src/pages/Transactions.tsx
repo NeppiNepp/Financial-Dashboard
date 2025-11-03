@@ -1,21 +1,40 @@
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow, TableFooter } from "@/components/ui/table";
 import { useImmer } from "use-immer";
 
-export default function Transactions({
-    checkingInfo, creditInfo, savingsInfo, setCheckingInfo, setCreditInfo, setSavingsInfo }: {
-    checkingInfo: any, creditInfo: any, savingsInfo: any, setCheckingInfo: any, setCreditInfo: any, setSavingsInfo: any
-    }) {
-    const [ currentCheckingInfo, updateCurrentCheckingInfo ] = useImmer(checkingInfo);
-    const [ currentCreditInfo, updateCurrentCreditInfo ] = useImmer(creditInfo);
-    const [ currentSavingsInfo, updateCurrentSavingsInfo ] = useImmer(savingsInfo);
-    const checkingTransactions = currentCheckingInfo.flatMap((account : any) => account.transactions.map((transaction: any) => transaction))
-    const checkingDeposits = currentCheckingInfo.flatMap((account : any) => account.deposits.map((deposit: any) => deposit));;
-    const creditTransactions = currentCreditInfo.flatMap((account : any) => account.transactions.map((transaction: any) => transaction));;
-    const creditPayments = currentCreditInfo.flatMap((account : any) => account.payments.map((payment: any) => payment));;
-    const savingsWithdrawals = currentSavingsInfo.flatMap((account : any) => account.withdrawals.map((withdrawal: any) => withdrawal));;
-    const savingsDeposits = currentSavingsInfo.flatMap((account : any) => account.deposits.map((deposit: any) => deposit));;
+export default function Transactions({ accountInfo, setAccountInfo }: { accountInfo: any, setAccountInfo: any }) {
+    const [ currentAccountInfo, updateCurrentAccountInfo ] = useImmer(accountInfo);
+    const checkingTransactions: any[] = [];
+    const checkingDeposits: any[] = [];
+    const creditTransactions: any[] = [];
+    const creditPayments: any[] = [];
+    const savingsWithdrawals: any[] = [];
+    const savingsDeposits: any[] = [];
+    currentAccountInfo.forEach((account: any) => {
+        if (account.type === 'Checking') {
+            account.transactions.forEach((transaction: any) => {
+                checkingTransactions.push(transaction)
+            })
+            account.deposits.forEach((deposit: any) => {
+                checkingDeposits.push(deposit);
+            })
+        } else if (account.type === 'Credit') {
+            account.transactions.forEach((transaction: any) => {
+                creditTransactions.push(transaction)
+            })
+            account.payments.forEach((payment: any) => {
+                creditPayments.push(payment);
+            })
+        } else if (account.type === 'Savings') {
+            account.withdrawals.forEach((withdrawal: any) => {
+                savingsWithdrawals.push(withdrawal)
+            })
+            account.deposits.forEach((deposit: any) => {
+                savingsDeposits.push(deposit);
+            })
+        }
+    })
 
-    setCheckingInfo; setCreditInfo; setSavingsInfo; updateCurrentCheckingInfo; updateCurrentCreditInfo; updateCurrentSavingsInfo;
+    updateCurrentAccountInfo; setAccountInfo;
     // leave here to remove errors temporarily
 
 

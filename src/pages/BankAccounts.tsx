@@ -1,17 +1,12 @@
 import { useImmer } from 'use-immer'
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef } from 'react'
 import { NewAccount, Account } from '../components/PageComponents'
 
 
 /*TODO: Add seperate pages that can only be accessed by clicking on the account - Displaying balance, all transactions, bills associated, etc. */
 
-export default function Accounts({
-    checkingInfo, setCheckingInfo, creditInfo, setCreditInfo, savingsInfo, setSavingsInfo }:{
-    checkingInfo: any, setCheckingInfo: any, creditInfo: any, setCreditInfo: any, savingsInfo: any, setSavingsInfo: any
-    }) {
-    const [ currentCheckingInfo, updateCurrentCheckingInfo ] = useImmer(checkingInfo);
-    const [ currentCreditInfo, updateCurrentCreditInfo ] = useImmer(creditInfo);
-    const [ currentSavingsInfo, updateCurrentSavingsInfo ] = useImmer(savingsInfo);
+export default function Accounts({ accountInfo, setAccountInfo }:{ accountInfo: any, setAccountInfo: any }) {
+    const [ currentAccountInfo, updateCurrentAccountInfo ] = useImmer(accountInfo);
     const [ addingAccount, setAddingAccount ] = useState(false);
     const [ type, setType ] = useState('');
     const nameRef = useRef<string>('');
@@ -21,25 +16,20 @@ export default function Accounts({
     const rewardsRef = useRef<string>('');
 
 
-    useEffect(() => { /* stores account information locally ---- needs to be changed to server for security later */
-        localStorage.setItem('checkingInfo', JSON.stringify(currentCheckingInfo));
-        localStorage.setItem('creditInfo', JSON.stringify(currentCreditInfo));
-        localStorage.setItem('savingsInfo', JSON.stringify(currentSavingsInfo));
-    }, [ checkingInfo, creditInfo, savingsInfo ]);
-
-
     function handleAddAccount() {
         let name: string, balance: string, limit: string, goal: string, rewards: string;
         switch (type) {
             case 'Checking':
-                                                            /* Solve the errors and remove @ts-ignore */
-                // @ts-ignore
+                let numOfChAccounts = 0;
+                accountInfo.forEach((account: any) => {
+                    if (account.type === 'Checking')
+                        numOfChAccounts++;
+                })
                 name = nameRef.current.value;
-                // @ts-ignore
                 balance = balanceRef.current.value;
-                updateCurrentCheckingInfo((draft: any[]) => {
+                updateCurrentAccountInfo((draft: any[]) => {
                     draft.push({
-                        id: 'Ch' + name + currentCheckingInfo.length,
+                        id: 'Ch' + numOfChAccounts,
                         type: 'Checking',
                         name: name ? name : 'Default',
                         deposits: [],
@@ -50,17 +40,18 @@ export default function Accounts({
                 setAddingAccount(false);
                 break;
             case 'Credit':
-                // @ts-ignore
+                let numOfCrAccounts = 0;
+                accountInfo.forEach((account: any) => {
+                    if (account.type === 'Credit')
+                        numOfCrAccounts++;
+                })
                 name = nameRef.current.value;
-                // @ts-ignore
                 balance = balanceRef.current.value;
-                // @ts-ignore
                 limit = limitRef.current.value;
-                // @ts-ignore
                 rewards = rewardsRef.current.value;
-                updateCurrentCreditInfo((draft: any[]) => {
+                updateCurrentAccountInfo((draft: any[]) => {
                     draft.push({
-                        id: 'Cr' + name + currentCreditInfo.length,
+                        id: 'Cr' + numOfCrAccounts,
                         type: 'Credit',
                         name: name ? name : 'Default',
                         payments: [],
@@ -73,15 +64,17 @@ export default function Accounts({
                 setAddingAccount(false);
                 break;
             case 'Savings':
-                // @ts-ignore
+                let numOfSaAccounts = 0;
+                accountInfo.forEach((account: any) => {
+                    if (account.type === 'Savings')
+                        numOfSaAccounts++;
+                })
                 name = nameRef.current.value;
-                // @ts-ignore
                 balance = balanceRef.current.value;
-                // @ts-ignore
                 goal = goalRef.current.value;
-                updateCurrentSavingsInfo((draft: any[]) => {
+                updateCurrentAccountInfo((draft: any[]) => {
                     draft.push({
-                        id: 'Sa' + name + currentSavingsInfo.length,
+                        id: 'Sa' + numOfSaAccounts,
                         type: 'Savings',
                         name: name ? name : 'Default',
                         withdrawals: [],
@@ -98,9 +91,7 @@ export default function Accounts({
     }
 
     function handleSave() {
-        setCheckingInfo(currentCheckingInfo);
-        setCreditInfo(currentCreditInfo);
-        setSavingsInfo(currentSavingsInfo);
+        setAccountInfo(currentAccountInfo);
     }
 
     return (  // create a component to make each section with less repeating
@@ -120,43 +111,49 @@ export default function Accounts({
             />
             <p className="text-[30px] text-center ml-[190px]">Checking Accounts</p>
             <div className="grid grid-cols-[1fr_1fr] ml-[325px] px-[25px] py-0"> {/* maps out each account into a grid */}
-                {currentCheckingInfo.map((account: any) =>
-                    <div key={account.id}>
-                        <Account
-                            account={account}
-                            type={account.type}
-                            currentInfo={currentCheckingInfo}
-                            updateCurrentInfo={updateCurrentCheckingInfo}
-                        />
-                    </div>
+                {currentAccountInfo.map((account: any) => {
+                    if (account.type === 'Checking') {
+                        return <div key={account.id}>
+                            <Account
+                                account={account}
+                                type={account.type}
+                                currentInfo={currentAccountInfo}
+                                updateCurrentInfo={updateCurrentAccountInfo}
+                            />
+                        </div>
+                    }}
                 )}
             </div>
             <hr className="mt-[40px] mb-[40px]" />
             <p className="text-[30px] text-center ml-[190px]">Credit Cards</p> {/* Only show if accounts exist? */}
             <div className="grid grid-cols-[1fr_1fr] ml-[325px] px-[25px] py-0">
-                {currentCreditInfo.map((account: any) =>
-                    <div key={account.id}>
-                        <Account
-                            account={account}
-                            type={account.type}
-                            currentInfo={currentCreditInfo}
-                            updateCurrentInfo={updateCurrentCreditInfo}
-                        />
-                    </div>
+                {currentAccountInfo.map((account: any) => {
+                    if (account.type === 'Credit') {
+                        return <div key={account.id}>
+                            <Account
+                                account={account}
+                                type={account.type}
+                                currentInfo={currentAccountInfo}
+                                updateCurrentInfo={updateCurrentAccountInfo}
+                            />
+                        </div>
+                    }}
                 )}
             </div>
             <hr className="mt-[40px] mb-[40px]" />
             <p className="text-[30px] text-center ml-[190px] mt-[40px]">Savings Accounts</p> {/* Only show if accounts exist? */}
             <div className="grid grid-cols-[1fr_1fr] ml-[325px] px-[25px] py-0">
-                {currentSavingsInfo.map((account: any) =>
-                <div key={account.id}>
-                        <Account
-                            account={account}
-                            type={account.type}
-                            currentInfo={currentSavingsInfo}
-                            updateCurrentInfo={updateCurrentSavingsInfo}
-                        />
-                </div>
+                {currentAccountInfo.map((account: any) => {
+                    if (account.type === 'Savings') {
+                        return <div key={account.id}>
+                            <Account
+                                account={account}
+                                type={account.type}
+                                currentInfo={currentAccountInfo}
+                                updateCurrentInfo={updateCurrentAccountInfo}
+                            />
+                        </div>
+                    }}
                 )}
             </div>
             <button className="ml-[190px] mt-[50px] mb-[50px] text-[white] bg-[darkblue]" onClick={handleSave}>Save Changes</button>

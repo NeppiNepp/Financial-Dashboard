@@ -290,6 +290,7 @@ export function Account({
     account, type, currentInfo, updateCurrentInfo }: {
     account: any, type: any, currentInfo: any, updateCurrentInfo: any
     }) {
+
     function removeAccount() { // fix this to remove based on some key
         const accountIndex = currentInfo.findIndex((cAccount: { id: string; }) => cAccount.id === account.id);
         updateCurrentInfo((draft: any[]) => {

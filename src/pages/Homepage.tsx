@@ -1,7 +1,5 @@
-export default function Homepage({ checkingInfo, creditInfo, savingsInfo, billsInfo }: { checkingInfo: any, creditInfo: any, savingsInfo: any, billsInfo: any }) {
-    checkingInfo;
-    creditInfo;
-    savingsInfo;
+export default function Homepage({ accountInfo, billsInfo }: { accountInfo: any, billsInfo: any }) {
+    accountInfo;
     billsInfo; // all temp to prevent errors
     return (
 
