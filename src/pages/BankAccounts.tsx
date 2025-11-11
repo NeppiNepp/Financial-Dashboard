@@ -1,11 +1,13 @@
 import { useImmer } from 'use-immer'
 import { useState, useRef } from 'react'
 import { NewAccount, Account } from '../components/PageComponents'
+import { updateDoc } from 'firebase/firestore'
+import { db } from '../../firebase-config'
 
 
 /*TODO: Add seperate pages that can only be accessed by clicking on the account - Displaying balance, all transactions, bills associated, etc. */
 
-export default function Accounts({ accountInfo, setAccountInfo }:{ accountInfo: any, setAccountInfo: any }) {
+export default function Accounts({ accountInfo, setAccountInfo, accountRef }:{ accountInfo: any, setAccountInfo: any, accountRef: any }) {
     const [ currentAccountInfo, updateCurrentAccountInfo ] = useImmer(accountInfo);
     const [ addingAccount, setAddingAccount ] = useState(false);
     const [ type, setType ] = useState('');
@@ -21,7 +23,7 @@ export default function Accounts({ accountInfo, setAccountInfo }:{ accountInfo: 
         switch (type) {
             case 'Checking':
                 let numOfChAccounts = 0;
-                accountInfo.forEach((account: any) => {
+                currentAccountInfo.forEach((account: any) => {
                     if (account.type === 'Checking')
                         numOfChAccounts++;
                 })
@@ -41,7 +43,7 @@ export default function Accounts({ accountInfo, setAccountInfo }:{ accountInfo: 
                 break;
             case 'Credit':
                 let numOfCrAccounts = 0;
-                accountInfo.forEach((account: any) => {
+                currentAccountInfo.forEach((account: any) => {
                     if (account.type === 'Credit')
                         numOfCrAccounts++;
                 })
@@ -65,7 +67,7 @@ export default function Accounts({ accountInfo, setAccountInfo }:{ accountInfo: 
                 break;
             case 'Savings':
                 let numOfSaAccounts = 0;
-                accountInfo.forEach((account: any) => {
+                currentAccountInfo.forEach((account: any) => {
                     if (account.type === 'Savings')
                         numOfSaAccounts++;
                 })
@@ -90,7 +92,11 @@ export default function Accounts({ accountInfo, setAccountInfo }:{ accountInfo: 
         setType('');
     }
 
-    function handleSave() {
+    const handleSave = async(e: any) => {
+        console.log(accountRef);
+        updateDoc(accountRef, {
+            accounts: currentAccountInfo
+        })
         setAccountInfo(currentAccountInfo);
     }
 
