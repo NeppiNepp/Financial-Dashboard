@@ -117,7 +117,7 @@ export default function Accounts({ accountInfo, setAccountInfo, accountRef }:{ a
             />
             <p className="text-[30px] text-center ml-[190px]">Checking Accounts</p>
             <div className="grid grid-cols-[1fr_1fr] ml-[325px] px-[25px] py-0"> {/* maps out each account into a grid */}
-                {currentAccountInfo.map((account: any) => {
+                {currentAccountInfo?.map((account: any) => {
                     if (account.type === 'Checking') {
                         return <div key={account.id}>
                             <Account
@@ -133,7 +133,7 @@ export default function Accounts({ accountInfo, setAccountInfo, accountRef }:{ a
             <hr className="mt-[40px] mb-[40px]" />
             <p className="text-[30px] text-center ml-[190px]">Credit Cards</p> {/* Only show if accounts exist? */}
             <div className="grid grid-cols-[1fr_1fr] ml-[325px] px-[25px] py-0">
-                {currentAccountInfo.map((account: any) => {
+                {currentAccountInfo?.map((account: any) => {
                     if (account.type === 'Credit') {
                         return <div key={account.id}>
                             <Account
@@ -149,7 +149,7 @@ export default function Accounts({ accountInfo, setAccountInfo, accountRef }:{ a
             <hr className="mt-[40px] mb-[40px]" />
             <p className="text-[30px] text-center ml-[190px] mt-[40px]">Savings Accounts</p> {/* Only show if accounts exist? */}
             <div className="grid grid-cols-[1fr_1fr] ml-[325px] px-[25px] py-0">
-                {currentAccountInfo.map((account: any) => {
+                {currentAccountInfo?.map((account: any) => {
                     if (account.type === 'Savings') {
                         return <div key={account.id}>
                             <Account

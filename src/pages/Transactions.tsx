@@ -9,7 +9,7 @@ export default function Transactions({ accountInfo, setAccountInfo }: { accountI
     const creditPayments: any[] = [];
     const savingsWithdrawals: any[] = [];
     const savingsDeposits: any[] = [];
-    currentAccountInfo.forEach((account: any) => {
+    currentAccountInfo?.forEach((account: any) => {
         if (account.type === 'Checking') {
             account.transactions.forEach((transaction: any) => {
                 checkingTransactions.push(transaction)
