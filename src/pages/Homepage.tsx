@@ -5,6 +5,7 @@ export default function Homepage({ accountInfo, billsInfo }: { accountInfo: any,
 
         <div>
             <h1 className="block text-center ml-[325px]">Home Page</h1>
+            <h2 className="text-[50px] block text-center ml-[325px] my-[20%]">Work In Progress</h2>
         </div>
     )
 }

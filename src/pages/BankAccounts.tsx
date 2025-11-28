@@ -2,6 +2,7 @@ import { useImmer } from 'use-immer'
 import { useState, useRef } from 'react'
 import { NewAccount, Account } from '../components/PageComponents'
 import { updateDoc } from 'firebase/firestore'
+// @ts-ignore
 import { db } from '../../firebase-config'
 
 
@@ -27,7 +28,9 @@ export default function Accounts({ accountInfo, setAccountInfo, accountRef }:{ a
                     if (account.type === 'Checking')
                         numOfChAccounts++;
                 })
+                // @ts-expect-error
                 name = nameRef.current.value;
+                // @ts-expect-error
                 balance = balanceRef.current.value;
                 updateCurrentAccountInfo((draft: any[]) => {
                     draft.push({
@@ -47,9 +50,13 @@ export default function Accounts({ accountInfo, setAccountInfo, accountRef }:{ a
                     if (account.type === 'Credit')
                         numOfCrAccounts++;
                 })
+                // @ts-expect-error
                 name = nameRef.current.value;
+                // @ts-expect-error
                 balance = balanceRef.current.value;
+                // @ts-expect-error
                 limit = limitRef.current.value;
+                // @ts-expect-error
                 rewards = rewardsRef.current.value;
                 updateCurrentAccountInfo((draft: any[]) => {
                     draft.push({
@@ -71,8 +78,11 @@ export default function Accounts({ accountInfo, setAccountInfo, accountRef }:{ a
                     if (account.type === 'Savings')
                         numOfSaAccounts++;
                 })
+                // @ts-expect-error
                 name = nameRef.current.value;
+                // @ts-expect-error
                 balance = balanceRef.current.value;
+                // @ts-expect-error
                 goal = goalRef.current.value;
                 updateCurrentAccountInfo((draft: any[]) => {
                     draft.push({
@@ -92,7 +102,7 @@ export default function Accounts({ accountInfo, setAccountInfo, accountRef }:{ a
         setType('');
     }
 
-    const handleSave = async(e: any) => {
+    const handleSave = async() => {
         console.log(accountRef);
         updateDoc(accountRef, {
             accounts: currentAccountInfo

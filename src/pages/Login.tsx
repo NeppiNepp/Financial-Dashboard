@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { doc, getDoc, addDoc, getDocs, collection } from "firebase/firestore";
+// @ts-ignore
 import { db } from '../../firebase-config'
 
 export default function Login({setAccountInfo, setAccountRef }:{setAccountInfo: any; setAccountRef: any}) {
@@ -103,6 +104,8 @@ export default function Login({setAccountInfo, setAccountRef }:{setAccountInfo: 
                 <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Email' className="block mx-[auto] my-[0] text-center rounded-[5px] border-[1px] border-[solid] border-[black] mb-[4px]"/>
                 <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Password' className="block mx-[auto] my-[0] text-center rounded-[5px] border-[1px] border-[solid] border-[black] mb-[4px]"/>
                 <input type="text" value={newUserId} onChange={(e) => setNewUserId(e.target.value)} placeholder='UserId' className="block mx-[auto] my-[0] text-center rounded-[5px] border-[1px] border-[solid] border-[black] mb-[10px]"/>
+                <p className="text-[12px] text-center">Password: Minimum 8 characters</p>
+                <p className="text-[12px] text-center">UserId: Minimum 6 characters</p>
                 <button type="button" onClick={(e) => handleCreate(e)} className="block mx-[auto] my-[0]">Create Account</button>
                 <button type="button" onClick={() => {setLogin(true); setFailedCreation(false)}} className="block mx-[auto] my-[0]">Log In</button>
                 {failedCreation && <div className="text-[20px] text-[red] text-center">Account Creation Error: User Exists or Invalid Information Entered</div>}
