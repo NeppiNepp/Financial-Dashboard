@@ -1,5 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
+// @ts-expect-error
 import { doc, getDoc } from "firebase/firestore";
+// @ts-expect-error
 import { db } from '../firebase-config.js';
 import { useImmer } from 'use-immer'
 import Navbar from './components/Navbar'
